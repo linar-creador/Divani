@@ -1107,14 +1107,14 @@
 
       allProducts = allRecords.map(r => ({
         id: r.id,
-        codigo: r.fields['Código'] || '',
+        codigo: (r.fields['Código'] || '').trim(),
         foto: r.fields['Foto'] ? r.fields['Foto'][0].url : null,
         fotos: r.fields['Foto'] ? r.fields['Foto'].map(f => f.url) : [],
         categoria: (r.fields['Categoría'] || 'General').trim(),
-        material: r.fields['Material'] || '',
+        material: (r.fields['Material'] || '').trim(),
         precioMayor: r.fields['Precio mayorista'] || 0,
         precioDetal: r.fields['Precio al detal'] || 0,
-        estado: r.fields['Estado'] || '',
+        estado: (r.fields['Estado'] || '').trim(),
         descripcion: r.fields['Descripción'] || '',
         colores: r.fields['Colores'] ? r.fields['Colores'].split(',').map(c => c.trim()).filter(Boolean) : [],
         tieneVariantes: (() => {
