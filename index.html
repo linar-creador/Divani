@@ -71,6 +71,42 @@
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
+      position: sticky;
+      z-index: 90;
+      transition: box-shadow 0.2s;
+    }
+
+    .filters.stuck {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* TOGGLE DETAL/MAYORISTA */
+    .price-mode-toggle {
+      flex-shrink: 0;
+      display: flex;
+      gap: 6px;
+      background: var(--beige);
+      padding: 3px;
+      border-radius: 20px;
+    }
+
+    .price-mode-btn {
+      border: none;
+      background: none;
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      color: var(--gray);
+      transition: all 0.2s;
+    }
+
+    .price-mode-btn.active {
+      background: var(--gold);
+      color: white;
     }
 
     .filter-label {
@@ -250,6 +286,88 @@
     .badge-agotado {
       background: #FFF0F0;
       color: #C04040;
+    }
+
+    /* QUICK ADD */
+    .card {
+      position: relative;
+    }
+
+    .quick-add-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 5;
+      transition: transform 0.15s;
+    }
+
+    .quick-add-btn:active {
+      transform: scale(0.9);
+    }
+
+    .quick-add-btn:disabled {
+      background: var(--gray);
+      cursor: not-allowed;
+    }
+
+    .catalog.list-view .quick-add-btn {
+      bottom: 10px;
+      right: 10px;
+    }
+
+    /* CANTIDAD EN CARRITO */
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-light);
+      background: white;
+      color: var(--dark);
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .qty-btn:hover {
+      background: var(--gold);
+      color: white;
+      border-color: var(--gold);
+    }
+
+    .qty-value {
+      font-size: 0.85rem;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    .btn-checkout:disabled,
+    .btn-whatsapp:disabled,
+    .btn-add-cart:disabled,
+    .quick-add-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     /* LIST VIEW */
@@ -826,10 +944,14 @@
     <p class="slogan">✨ Tu brillo, nuestra pasión</p>
 </header>
 
-<div class="filters" style="flex-direction:column; align-items:stretch;">
-  <div class="filter-group" style="display:flex; align-items:center;">
+<div class="filters" id="filters-bar" style="flex-direction:column; align-items:stretch;">
+  <div class="filter-group" style="display:flex; align-items:center; gap:10px;">
     <input type="text" id="search-input" placeholder="🔍 Buscar por nombre, código o material..." oninput="filtrarBusqueda(this.value)"
       style="flex:1; padding:8px 14px; border:1px solid var(--gold-light); border-radius:20px; font-family:'Jost',sans-serif; font-size:0.85rem; outline:none;" />
+    <div class="price-mode-toggle" id="price-mode-toggle">
+      <button class="price-mode-btn" id="mode-btn-detal" onclick="togglePriceMode('detal')">Detal</button>
+      <button class="price-mode-btn" id="mode-btn-mayorista" onclick="togglePriceMode('mayorista')">Mayorista</button>
+    </div>
   </div>
   <div class="filter-group" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px;">
     <span class="filter-label">Material:</span>
@@ -911,9 +1033,23 @@
 
   let cart = [];
 
+  function updatePriceModeToggle() {
+    document.getElementById('mode-btn-detal').classList.toggle('active', priceMode === 'detal');
+    document.getElementById('mode-btn-mayorista').classList.toggle('active', priceMode === 'mayorista');
+  }
+
+  function togglePriceMode(mode) {
+    priceMode = mode;
+    localStorage.setItem('divaniPriceMode', mode);
+    updatePriceModeToggle();
+    renderProducts();
+    if (document.getElementById('cart-panel').classList.contains('open')) renderCart();
+  }
+
   function addToCart(id) {
     const p = allProducts.find(x => x.id === id);
     if (!p) return;
+    if (p.estado && p.estado.toLowerCase() !== 'disponible') return;
     const selectedColorBtn = document.querySelector('.color-btn.selected');
     const color = selectedColorBtn ? selectedColorBtn.textContent : '';
     if (p.colores && p.colores.length > 0 && !color) {
@@ -959,6 +1095,18 @@
     renderCart();
   }
 
+  function changeQty(idx, delta) {
+    const item = cart[idx];
+    if (!item) return;
+    item.qty = (item.qty || 1) + delta;
+    if (item.qty <= 0) {
+      removeFromCart(idx);
+      return;
+    }
+    updateCartBadge();
+    renderCart();
+  }
+
   function renderCart() {
     const container = document.getElementById('cart-items');
     const footer = document.getElementById('cart-footer');
@@ -981,7 +1129,12 @@
           ${p.foto ? `<img class="cart-item-img" src="${p.foto}" />` : '<div class="cart-item-img"></div>'}
           <div class="cart-item-info">
             <div class="cart-item-name">${p.categoria}</div>
-            <div class="cart-item-detail">${p.codigo}${item.color ? ' · ' + item.color : ''}${item.qty > 1 ? ' · x' + item.qty : ''}</div>
+            <div class="cart-item-detail">${p.codigo}${item.color ? ' · ' + item.color : ''}</div>
+            <div class="cart-item-qty">
+              <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+              <span class="qty-value">${item.qty || 1}</span>
+              <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+            </div>
             <div class="cart-item-price">${formatPrice(precio)}</div>
           </div>
           <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
@@ -1023,6 +1176,7 @@
     priceMode = mode;
     localStorage.setItem('divaniPriceMode', mode);
     document.getElementById('welcome').style.display = 'none';
+    updatePriceModeToggle();
     renderProducts();
   }
 
@@ -1058,6 +1212,7 @@
     // Hide welcome screen immediately when deep link detected
     document.getElementById('welcome').style.display = 'none';
     priceMode = 'detal';
+    updatePriceModeToggle();
     let attempts = 0;
     const tryOpen = () => {
       const p = allProducts.find(x => x.codigo && x.codigo.trim() === hash.trim());
@@ -1208,7 +1363,10 @@
       return;
     }
 
-    catalog.innerHTML = filtered.map(p => `
+    catalog.innerHTML = filtered.map(p => {
+      const isAgotado = p.estado && p.estado.toLowerCase() !== 'disponible';
+      const needsChoice = p.colores && p.colores.length > 0; // talla/color: must open modal
+      return `
       <div class="card" id="card-${p.codigo}" onclick="openModal('${p.id}')">
         ${p.foto
           ? `<img class="card-img" src="${p.foto}" alt="${p.codigo}" loading="lazy" />`
@@ -1222,17 +1380,46 @@
               <span class="price-label">${priceMode === 'detal' ? 'Detal' : 'Mayorista'}</span>
               <span class="price-detal">${priceMode === 'detal' ? formatPrice(p.precioDetal) : formatPrice(p.precioMayor)}</span>
             </div>
-            ${p.estado ? `<span class="badge badge-${p.estado.toLowerCase() === 'disponible' ? 'disponible' : 'agotado'}">${p.estado}</span>` : ''}
+            ${p.estado ? `<span class="badge badge-${isAgotado ? 'agotado' : 'disponible'}">${p.estado}</span>` : ''}
           </div>
         </div>
+        ${!needsChoice ? `
+        <button class="quick-add-btn" id="quick-add-${p.id}" title="${isAgotado ? 'Agotado' : 'Agregar al carrito'}" ${isAgotado ? 'disabled' : ''}
+          onclick="event.stopPropagation(); quickAddToCart('${p.id}')">＋</button>` : ''}
       </div>
-    `).join('');
+    `;
+    }).join('');
+  }
+
+  function quickAddToCart(id) {
+    const p = allProducts.find(x => x.id === id);
+    if (!p) return;
+    if (p.estado && p.estado.toLowerCase() !== 'disponible') return;
+    const existing = cart.find(i => i.id === id && !i.color);
+    if (existing) {
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      cart.push({ id, color: '', qty: 1, precioVarianteMayor: null, precioVarianteDetal: null });
+    }
+    updateCartBadge();
+    document.getElementById('cart-fab').style.display = 'flex';
+    const btn = document.getElementById('quick-add-' + id);
+    if (btn) {
+      const original = btn.textContent;
+      btn.textContent = '✓';
+      btn.style.background = 'var(--olive)';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+      }, 700);
+    }
   }
 
 
   function pedirProducto(id) {
     const p = allProducts.find(x => x.id === id);
     if (!p) return;
+    if (p.estado && p.estado.toLowerCase() !== 'disponible') return;
     const selectedColorBtn = document.querySelector('.color-btn.selected');
     const color = selectedColorBtn ? selectedColorBtn.textContent : '';
     if (p.colores && p.colores.length > 0 && !color) {
@@ -1306,12 +1493,17 @@
           </div>
         </div>`}
       <button class="btn-share" onclick="shareProduct('${p.codigo}')">🔗 Copiar link del producto</button>
-      <button class="btn-add-cart" onclick="addToCart('${p.id}')">
-        🛒 Agregar al carrito
-      </button>
-      <button class="btn-whatsapp" onclick="pedirProducto('${p.id}')" style="margin-top:8px">
-        💬 Pedir solo este por WhatsApp
-      </button>
+      ${(() => {
+        const isAgotado = p.estado && p.estado.toLowerCase() !== 'disponible';
+        if (isAgotado) {
+          return `
+      <button class="btn-add-cart" disabled>🛒 Agotado - no disponible</button>
+      <button class="btn-whatsapp" disabled style="margin-top:8px;background:var(--gray)">💬 Agotado - no disponible</button>`;
+        }
+        return `
+      <button class="btn-add-cart" onclick="addToCart('${p.id}')">🛒 Agregar al carrito</button>
+      <button class="btn-whatsapp" onclick="pedirProducto('${p.id}')" style="margin-top:8px">💬 Pedir solo este por WhatsApp</button>`;
+      })()}
     `;
     document.getElementById('modal').classList.add('open');
   }
@@ -1324,6 +1516,23 @@
   }
 
   loadProducts();
+  updatePriceModeToggle();
+
+  // Sticky filters bar: stick right below the header, regardless of header height
+  function positionFiltersBar() {
+    const header = document.querySelector('header');
+    const filtersBar = document.getElementById('filters-bar');
+    if (header && filtersBar) {
+      filtersBar.style.top = header.offsetHeight + 'px';
+    }
+  }
+  positionFiltersBar();
+  window.addEventListener('resize', positionFiltersBar);
+  window.addEventListener('scroll', () => {
+    const filtersBar = document.getElementById('filters-bar');
+    if (filtersBar) filtersBar.classList.toggle('stuck', window.scrollY > 40);
+  });
+
   // Show welcome screen only if no deep link AND no saved preference
   const savedMode = localStorage.getItem('divaniPriceMode');
   if (!window.location.hash || window.location.hash === '#') {
@@ -1334,6 +1543,7 @@
     }
   } else {
     priceMode = 'detal';
+    updatePriceModeToggle();
     checkDeepLink();
   }
 </script>
