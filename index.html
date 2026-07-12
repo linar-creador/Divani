@@ -991,9 +991,146 @@
     @media (min-width: 600px) {
       .catalog { grid-template-columns: repeat(3, 1fr); }
     }
+    /* MODO SEPARAR (uso interno colaboradoras) */
+    .admin-banner {
+      display: none;
+      background: var(--gold);
+      color: var(--white);
+      text-align: center;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      position: sticky;
+      top: 0;
+      z-index: 95;
+    }
+    .admin-banner.active { display: block; }
+
+    .admin-toggle-fab {
+      position: fixed;
+      bottom: 90px;
+      right: 16px;
+      background: var(--olive);
+      color: var(--white);
+      border: none;
+      border-radius: 24px;
+      padding: 10px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      z-index: 99;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: none;
+    }
+    .admin-toggle-fab.visible { display: block; }
+    .admin-toggle-fab.on { background: var(--gold); }
+
+    .separado-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .separado-modal-overlay.open { display: flex; }
+    .separado-modal-box {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 360px;
+    }
+    .separado-modal-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--dark);
+      margin-bottom: 4px;
+      font-size: 1.3rem;
+    }
+    .separado-modal-box label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      margin-top: 14px;
+      margin-bottom: 4px;
+    }
+    .separado-modal-box input,
+    .separado-modal-box select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--gold-light);
+      border-radius: 6px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      background: var(--beige);
+      color: var(--dark);
+    }
+    .separado-modal-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .separado-modal-actions button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .separado-cancel-btn { background: var(--beige); color: var(--dark); }
+    .separado-confirm-btn { background: var(--olive); color: var(--white); }
+
+    /* VISTA DE PEDIDO (link compartido con la clienta) */
+    .pedido-view { display: none; padding: 20px; }
+    .pedido-view.active { display: block; }
+    .pedido-header { text-align: center; margin-bottom: 20px; }
+    .pedido-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--dark);
+    }
+    .pedido-item {
+      display: flex;
+      gap: 12px;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .pedido-item img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .pedido-item-info { flex: 1; }
+    .pedido-total {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 1.2rem;
+      color: var(--olive);
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
+
+<div class="admin-banner" id="admin-banner">🔖 Modo colaboradora: armando separado para clienta</div>
+
+<!-- VISTA DE PEDIDO (link compartido con la clienta) -->
+<div class="pedido-view" id="pedido-view">
+  <div class="pedido-header" id="pedido-cliente-name"></div>
+  <div id="pedido-items"></div>
+  <div class="pedido-total" id="pedido-total"></div>
+</div>
 
 <!-- PANTALLA DE BIENVENIDA -->
 <div class="welcome-overlay" id="welcome" style="display:none">
@@ -1067,6 +1204,30 @@
   <span class="cart-badge" id="cart-badge">0</span>
 </button>
 
+<!-- TOGGLE MODO COLABORADORA -->
+<button class="admin-toggle-fab" id="admin-toggle-fab" onclick="toggleAdminMode()">Separar: OFF</button>
+
+<!-- MODAL GUARDAR SEPARADO -->
+<div class="separado-modal-overlay" id="separado-modal-overlay">
+  <div class="separado-modal-box">
+    <h3>Guardar separado</h3>
+    <label>Nombre de la clienta</label>
+    <input type="text" id="separado-cliente" placeholder="Ej. María Pérez" />
+    <label>¿Quién está separando?</label>
+    <select id="separado-colaboradora">
+      <option value="">Selecciona...</option>
+      <option value="Tatiana">Tatiana</option>
+      <option value="Martha">Martha</option>
+      <option value="Saray">Saray</option>
+      <option value="Lina">Lina</option>
+    </select>
+    <div class="separado-modal-actions">
+      <button class="separado-cancel-btn" onclick="closeSeparadoModal()">Cancelar</button>
+      <button class="separado-confirm-btn" onclick="confirmSeparado()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <!-- PANEL CARRITO -->
 <div class="cart-panel" id="cart-panel">
   <div class="cart-inner">
@@ -1080,13 +1241,15 @@
         <span class="cart-total-label">Total detal</span>
         <span class="cart-total-value" id="cart-total">$0</span>
       </div>
-      <button class="btn-checkout" onclick="sendCartToWhatsApp()">💬 Enviar pedido por WhatsApp</button>
+      <button class="btn-checkout" id="btn-whatsapp-checkout" onclick="sendCartToWhatsApp()">💬 Enviar pedido por WhatsApp</button>
+      <button class="btn-checkout" id="btn-guardar-separado" style="display:none;background:var(--gold);margin-top:8px" onclick="openSeparadoModal()">💾 Guardar como separado</button>
     </div>
   </div>
 </div>
 
 <footer>
   © 2026 Divani Silver · Todos los derechos reservados
+  <span onclick="requestAdminAccess()" style="cursor:pointer;opacity:0.4;margin-left:8px">🔒</span>
 </footer>
 
 <script>
@@ -1094,6 +1257,9 @@
   const BASE_ID = 'appO726eW1eKNicet';
   const TABLE = 'Productos';
   const WHATSAPP = "573164881750"; // ← Cambia esto por tu número de WhatsApp
+  const SEPARADOS_TABLE = 'Separados';
+  const ADMIN_PASSWORD = 'divani2026'; // ← Cambia esta contraseña por la que quieras usar
+  let adminMode = false;
 
   let allProducts = [];
   let currentCategory = 'todos';
@@ -1643,7 +1809,173 @@
     }
   }
 
-  loadProducts();
+  // ===== MODO COLABORADORA (SEPARADOS) =====
+  function initAdminAccess() {
+    // Si ya se autenticó antes en este celular, el botón "Separar" aparece directo
+    const authed = localStorage.getItem('divaniAdminAuth') === 'yes';
+    if (authed) {
+      document.getElementById('admin-toggle-fab').classList.add('visible');
+    }
+  }
+
+  function requestAdminAccess() {
+    const authed = localStorage.getItem('divaniAdminAuth') === 'yes';
+    if (authed) return; // ya tiene acceso, no hace falta pedir contraseña otra vez
+    const pass = prompt('Contraseña de acceso interno:');
+    if (pass === ADMIN_PASSWORD) {
+      localStorage.setItem('divaniAdminAuth', 'yes');
+      document.getElementById('admin-toggle-fab').classList.add('visible');
+      alert('¡Listo! Ya tienes acceso al modo colaboradora en este celular.');
+    } else if (pass !== null) {
+      alert('Contraseña incorrecta.');
+    }
+  }
+
+  function toggleAdminMode() {
+    adminMode = !adminMode;
+    document.getElementById('admin-banner').classList.toggle('active', adminMode);
+    document.getElementById('admin-toggle-fab').classList.toggle('on', adminMode);
+    document.getElementById('admin-toggle-fab').textContent = adminMode ? 'Separar: ON' : 'Separar: OFF';
+    updateCheckoutButtons();
+  }
+
+  function updateCheckoutButtons() {
+    const wa = document.getElementById('btn-whatsapp-checkout');
+    const guardar = document.getElementById('btn-guardar-separado');
+    if (!wa || !guardar) return;
+    wa.style.display = adminMode ? 'none' : 'block';
+    guardar.style.display = adminMode ? 'block' : 'none';
+  }
+
+  function openSeparadoModal() {
+    if (!cart.length) return;
+    document.getElementById('separado-cliente').value = '';
+    document.getElementById('separado-colaboradora').value = '';
+    document.getElementById('separado-modal-overlay').classList.add('open');
+  }
+
+  function closeSeparadoModal() {
+    document.getElementById('separado-modal-overlay').classList.remove('open');
+  }
+
+  async function getNextPedidoId() {
+    const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(SEPARADOS_TABLE)}?sort%5B0%5D%5Bfield%5D=Pedido%20ID&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=1`;
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
+    const data = await res.json();
+    if (data.records && data.records.length && data.records[0].fields['Pedido ID']) {
+      return Number(data.records[0].fields['Pedido ID']) + 1;
+    }
+    return 1;
+  }
+
+  async function confirmSeparado() {
+    const cliente = document.getElementById('separado-cliente').value.trim();
+    const colaboradora = document.getElementById('separado-colaboradora').value;
+    if (!cliente) { alert('Escribe el nombre de la clienta.'); return; }
+    if (!colaboradora) { alert('Selecciona quién está separando.'); return; }
+    const confirmBtn = document.querySelector('.separado-confirm-btn');
+    confirmBtn.textContent = 'Guardando...';
+    confirmBtn.disabled = true;
+    try {
+      const pedidoId = await getNextPedidoId();
+      const hoy = new Date().toISOString().split('T')[0];
+      const records = cart.map(item => {
+        const p = allProducts.find(x => x.id === item.id);
+        const precioUnit = item.precioVarianteDetal
+          ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
+          : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+        return {
+          fields: {
+            'Pedido ID': pedidoId,
+            'Cliente': cliente,
+            'Persona que separa': colaboradora,
+            'Código': p.codigo,
+            'Categoría': p.categoria,
+            'Cantidad': item.qty || 1,
+            'Precio': precioUnit,
+            'Estado': 'Separado',
+            'Fecha': hoy
+          }
+        };
+      });
+      const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(SEPARADOS_TABLE)}`;
+      for (let i = 0; i < records.length; i += 10) {
+        const batch = records.slice(i, i + 10);
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ records: batch })
+        });
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error && errData.error.message ? errData.error.message : 'Error guardando en Airtable');
+        }
+      }
+      const link = window.location.origin + window.location.pathname + '?pedido=' + pedidoId;
+      closeSeparadoModal();
+      cart = [];
+      updateCartBadge();
+      document.getElementById('cart-fab').style.display = 'none';
+      closeCart();
+      prompt('¡Separado #' + pedidoId + ' guardado! Copia este link para enviarle a ' + cliente + ':', link);
+    } catch (e) {
+      alert('No se pudo guardar. Intenta de nuevo.\n' + e.message);
+    } finally {
+      confirmBtn.textContent = 'Guardar';
+      confirmBtn.disabled = false;
+    }
+  }
+
+  // ===== VISTA PÚBLICA DE PEDIDO (link para la clienta) =====
+  async function checkPedidoLink() {
+    const params = new URLSearchParams(window.location.search);
+    const pedidoId = params.get('pedido');
+    if (!pedidoId) return;
+    document.getElementById('welcome').style.display = 'none';
+    document.querySelector('.filters').style.display = 'none';
+    document.getElementById('catalog').style.display = 'none';
+    document.getElementById('pedido-view').classList.add('active');
+    document.getElementById('pedido-cliente-name').innerHTML = '<h2>Cargando tu separado...</h2>';
+    try {
+      const formula = encodeURIComponent(`{Pedido ID} = ${pedidoId}`);
+      const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(SEPARADOS_TABLE)}?filterByFormula=${formula}`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
+      const data = await res.json();
+      if (!data.records || !data.records.length) {
+        document.getElementById('pedido-cliente-name').innerHTML = '<h2>No encontramos este pedido.</h2>';
+        return;
+      }
+      const cliente = data.records[0].fields['Cliente'] || '';
+      document.getElementById('pedido-cliente-name').innerHTML = `<h2>Separado de ${cliente}</h2>`;
+      let total = 0;
+      const itemsHtml = data.records.map(r => {
+        const f = r.fields;
+        const producto = allProducts.find(p => p.codigo === (f['Código'] || '').trim());
+        const cantidad = f['Cantidad'] || 1;
+        const precio = (f['Precio'] || 0) * cantidad;
+        total += precio;
+        return `
+          <div class="pedido-item">
+            ${producto && producto.foto ? `<img src="${producto.foto}" />` : ''}
+            <div class="pedido-item-info">
+              <div>${f['Categoría'] || ''} ${producto ? '(' + producto.codigo + ')' : ''}</div>
+              <div style="color:var(--gray);font-size:0.85rem">Cantidad: ${cantidad}</div>
+              <div style="color:var(--olive)">${formatPrice(precio)}</div>
+            </div>
+          </div>`;
+      }).join('');
+      document.getElementById('pedido-items').innerHTML = itemsHtml;
+      document.getElementById('pedido-total').textContent = 'Total: ' + formatPrice(total);
+    } catch (e) {
+      document.getElementById('pedido-cliente-name').innerHTML = '<h2>Hubo un problema cargando el pedido.</h2>';
+    }
+  }
+
+  initAdminAccess();
+  loadProducts().then(checkPedidoLink);
   updatePriceModeToggle();
 
   // Sticky filters bar: stick right below the header, regardless of header height
