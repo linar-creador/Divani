@@ -1119,6 +1119,33 @@
       color: var(--olive);
       font-weight: 500;
     }
+
+    /* PANEL DE SEPARADOS / PRE-FACTURA */
+    .panel-pedido-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--gold-light);
+      cursor: pointer;
+    }
+    .panel-pedido-row:active { background: var(--beige); }
+    .panel-pedido-row .num { font-weight: 600; color: var(--olive); }
+    .panel-pedido-row .fecha { font-size: 0.75rem; color: var(--gray); }
+    #panel-prefactura-tabla th, #panel-prefactura-tabla td {
+      border: 1px solid var(--gold-light);
+      padding: 6px 8px;
+      text-align: left;
+    }
+    #panel-prefactura-tabla th { background: var(--beige); }
+
+    @media print {
+      body * { visibility: hidden; }
+      #panel-detalle-info, #panel-detalle-info *,
+      #panel-prefactura-tabla, #panel-prefactura-tabla * { visibility: visible; }
+      #panel-detalle-info { position: absolute; top: 0; left: 0; }
+      #panel-prefactura-tabla { position: absolute; top: 100px; left: 0; width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -1206,6 +1233,7 @@
 
 <!-- TOGGLE MODO COLABORADORA -->
 <button class="admin-toggle-fab" id="admin-toggle-fab" onclick="toggleAdminMode()">Separar: OFF</button>
+<button class="admin-toggle-fab" id="panel-toggle-fab" style="bottom:140px;background:#5c5240" onclick="openPanelSeparados()">📋 Separados</button>
 
 <!-- MODAL GUARDAR SEPARADO -->
 <div class="separado-modal-overlay" id="separado-modal-overlay">
@@ -1224,6 +1252,27 @@
     <div class="separado-modal-actions">
       <button class="separado-cancel-btn" onclick="closeSeparadoModal()">Cancelar</button>
       <button class="separado-confirm-btn" onclick="confirmSeparado()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL PRIVADO: CONSULTAR SEPARADOS -->
+<div class="separado-modal-overlay" id="panel-overlay">
+  <div class="separado-modal-box" style="max-width:480px;max-height:85vh;overflow-y:auto">
+    <h3 id="panel-title">Separados</h3>
+    <div id="panel-lista-view">
+      <label>Buscar por nombre de clienta (opcional)</label>
+      <input type="text" id="panel-buscar-cliente" placeholder="Ej. María" oninput="renderPanelLista()" />
+      <div id="panel-lista" style="margin-top:14px"></div>
+    </div>
+    <div id="panel-detalle-view" style="display:none">
+      <button class="separado-cancel-btn" style="width:auto;padding:6px 14px;margin-bottom:10px" onclick="volverAPanelLista()">← Volver</button>
+      <div id="panel-detalle-info"></div>
+      <table id="panel-prefactura-tabla" style="width:100%;border-collapse:collapse;margin-top:12px;font-size:0.85rem"></table>
+      <button class="separado-confirm-btn" style="width:100%;margin-top:16px" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    </div>
+    <div class="separado-modal-actions" id="panel-lista-actions">
+      <button class="separado-cancel-btn" onclick="closePanelSeparados()">Cerrar</button>
     </div>
   </div>
 </div>
@@ -1530,6 +1579,7 @@
         fotos: r.fields['Foto'] ? r.fields['Foto'].map(f => f.url) : [],
         categoria: (r.fields['Categoría'] || 'General').trim(),
         material: (r.fields['Material'] || '').trim(),
+        codigoFacturacion: (r.fields['Código Facturación'] || '').trim(),
         precioMayor: r.fields['Precio mayorista'] || 0,
         precioDetal: r.fields['Precio al detal'] || 0,
         estado: (r.fields['Estado'] || '').trim(),
@@ -1815,6 +1865,7 @@
     const authed = localStorage.getItem('divaniAdminAuth') === 'yes';
     if (authed) {
       document.getElementById('admin-toggle-fab').classList.add('visible');
+      document.getElementById('panel-toggle-fab').classList.add('visible');
     }
   }
 
@@ -1825,6 +1876,7 @@
     if (pass === ADMIN_PASSWORD) {
       localStorage.setItem('divaniAdminAuth', 'yes');
       document.getElementById('admin-toggle-fab').classList.add('visible');
+      document.getElementById('panel-toggle-fab').classList.add('visible');
       alert('¡Listo! Ya tienes acceso al modo colaboradora en este celular.');
     } else if (pass !== null) {
       alert('Contraseña incorrecta.');
@@ -1975,6 +2027,116 @@
     } catch (e) {
       document.getElementById('pedido-cliente-name').innerHTML = '<h2>Hubo un problema cargando el pedido.</h2>';
     }
+  }
+
+  // ===== PANEL PRIVADO: CONSULTAR SEPARADOS / PRE-FACTURA =====
+  let panelPedidosCache = [];
+
+  async function openPanelSeparados() {
+    document.getElementById('panel-overlay').classList.add('open');
+    document.getElementById('panel-title').textContent = 'Cargando...';
+    try {
+      const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(SEPARADOS_TABLE)}?sort%5B0%5D%5Bfield%5D=Pedido%20ID&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=300`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
+      const data = await res.json();
+      const porPedido = {};
+      (data.records || []).forEach(r => {
+        const f = r.fields;
+        const pid = f['Pedido ID'];
+        if (!pid) return;
+        if (!porPedido[pid]) {
+          porPedido[pid] = {
+            pedidoId: pid,
+            cliente: f['Cliente'] || '',
+            colaboradora: f['Persona que separa'] || '',
+            fecha: f['Fecha'] || '',
+            items: []
+          };
+        }
+        porPedido[pid].items.push(f);
+      });
+      panelPedidosCache = Object.values(porPedido).sort((a, b) => b.pedidoId - a.pedidoId);
+      document.getElementById('panel-title').textContent = 'Separados';
+      renderPanelLista();
+    } catch (e) {
+      document.getElementById('panel-title').textContent = 'Error al cargar';
+    }
+  }
+
+  function renderPanelLista() {
+    const filtro = document.getElementById('panel-buscar-cliente').value.trim().toLowerCase();
+    const lista = document.getElementById('panel-lista');
+    const filtrados = filtro
+      ? panelPedidosCache.filter(p => p.cliente.toLowerCase().includes(filtro))
+      : panelPedidosCache;
+    if (!filtrados.length) {
+      lista.innerHTML = '<p style="color:var(--gray);font-size:0.85rem">No hay separados que coincidan.</p>';
+      return;
+    }
+    lista.innerHTML = filtrados.map(p => `
+      <div class="panel-pedido-row" onclick="verDetallePedido(${p.pedidoId})">
+        <div>
+          <div class="num">#${p.pedidoId} — ${p.cliente}</div>
+          <div class="fecha">${p.colaboradora} · ${p.fecha} · ${p.items.length} artículo(s)</div>
+        </div>
+        <div>›</div>
+      </div>
+    `).join('');
+  }
+
+  function verDetallePedido(pedidoId) {
+    const pedido = panelPedidosCache.find(p => p.pedidoId === pedidoId);
+    if (!pedido) return;
+    document.getElementById('panel-lista-view').style.display = 'none';
+    document.getElementById('panel-lista-actions').style.display = 'none';
+    document.getElementById('panel-detalle-view').style.display = 'block';
+
+    document.getElementById('panel-detalle-info').innerHTML = `
+      <h3 style="margin-bottom:2px">Pedido #${pedido.pedidoId} — ${pedido.cliente}</h3>
+      <div style="font-size:0.8rem;color:var(--gray)">Separado por ${pedido.colaboradora} el ${pedido.fecha}</div>
+    `;
+
+    // Agrupar por Código Facturación (o avisar si algún producto no lo tiene)
+    const grupos = {};
+    let faltanCodigos = false;
+    let totalGeneral = 0;
+    pedido.items.forEach(f => {
+      const codigoDvs = (f['Código'] || '').trim();
+      const producto = allProducts.find(p => p.codigo === codigoDvs);
+      let codFact = producto && producto.codigoFacturacion ? producto.codigoFacturacion : '';
+      if (!codFact) { codFact = '⚠️ Sin código (' + codigoDvs + ')'; faltanCodigos = true; }
+      const cantidad = f['Cantidad'] || 1;
+      const precio = (f['Precio'] || 0) * cantidad;
+      totalGeneral += precio;
+      if (!grupos[codFact]) grupos[codFact] = { cantidad: 0, total: 0 };
+      grupos[codFact].cantidad += cantidad;
+      grupos[codFact].total += precio;
+    });
+
+    let tablaHtml = '<tr><th>Código facturación</th><th>Cantidad</th><th>Subtotal</th></tr>';
+    Object.keys(grupos).forEach(cod => {
+      tablaHtml += `<tr><td>${cod}</td><td>${grupos[cod].cantidad}</td><td>${formatPrice(grupos[cod].total)}</td></tr>`;
+    });
+    tablaHtml += `<tr><td colspan="2" style="font-weight:600">Total</td><td style="font-weight:600">${formatPrice(totalGeneral)}</td></tr>`;
+    document.getElementById('panel-prefactura-tabla').innerHTML = tablaHtml;
+
+    if (faltanCodigos) {
+      document.getElementById('panel-detalle-info').innerHTML += `
+        <div style="background:#fbe9c6;color:#7a5b00;padding:8px;border-radius:6px;font-size:0.78rem;margin-top:8px">
+          ⚠️ Algunos productos aún no tienen Código Facturación asignado en Airtable — complétalo en la tabla Productos.
+        </div>`;
+    }
+  }
+
+  function volverAPanelLista() {
+    document.getElementById('panel-lista-view').style.display = 'block';
+    document.getElementById('panel-lista-actions').style.display = 'flex';
+    document.getElementById('panel-detalle-view').style.display = 'none';
+  }
+
+  function closePanelSeparados() {
+    document.getElementById('panel-overlay').classList.remove('open');
+    volverAPanelLista();
   }
 
   initAdminAccess();
