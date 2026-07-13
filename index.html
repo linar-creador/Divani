@@ -1881,9 +1881,11 @@
       const hoy = new Date().toISOString().split('T')[0];
       const records = cart.map(item => {
         const p = allProducts.find(x => x.id === item.id);
-        const precioUnit = item.precioVarianteDetal
-          ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-          : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+        const precioUnit = Number(
+          item.precioVarianteDetal
+            ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
+            : (priceMode === 'detal' ? p.precioDetal : p.precioMayor)
+        ) || 0;
         return {
           fields: {
             'Pedido ID': pedidoId,
