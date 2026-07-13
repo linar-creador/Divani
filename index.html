@@ -1913,7 +1913,8 @@
         });
         if (!res.ok) {
           const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error && errData.error.message ? errData.error.message : 'Error guardando en Airtable');
+          const detalle = errData.error && errData.error.message ? errData.error.message : 'Error guardando en Airtable';
+          throw new Error(detalle + '\n\nDATOS ENVIADOS:\n' + JSON.stringify(batch, null, 1).slice(0, 500));
         }
       }
       const link = window.location.origin + window.location.pathname + '?pedido=' + pedidoId;
