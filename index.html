@@ -1189,7 +1189,7 @@
 </header>
 
 <div class="filters" id="filters-bar" style="flex-direction:column; align-items:stretch;">
-  <div class="filter-group" style="display:flex; align-items:center; gap:8px;">
+  <div class="filter-group" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
     <input type="text" id="search-input" placeholder="🔍 Buscar..." oninput="filtrarBusqueda(this.value)"
       style="flex:1; padding:7px 12px; border:1px solid var(--gold-light); border-radius:20px; font-family:'Jost',sans-serif; font-size:0.8rem; outline:none; min-width:80px;" />
     <div class="price-mode-toggle" id="price-mode-toggle">
@@ -1206,12 +1206,12 @@
     <div class="filter-group" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
       <span class="filter-label">Material:</span>
       <button class="filter-btn material-btn active" onclick="filtrarMaterial('todos', this)">Todos</button>
-      <div id="material-filters" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+      <div id="material-filters" style="display:flex; gap:8px; flex-wrap:wrap; flex-basis:100%; min-width:0;"></div>
     </div>
     <div class="filter-group" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
       <span class="filter-label">Estilo:</span>
       <button class="filter-btn category-btn active" onclick="filtrarCategoria('todos', this)">Todos</button>
-      <div id="category-filters" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+      <div id="category-filters" style="display:flex; gap:8px; flex-wrap:wrap; flex-basis:100%; min-width:0;"></div>
     </div>
   </div>
 </div>
