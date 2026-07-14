@@ -26,11 +26,17 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Jost', sans-serif;
       background: var(--beige);
       color: var(--dark);
       min-height: 100vh;
+      position: relative;
     }
 
     /* HEADER */
@@ -1256,6 +1262,22 @@
   </div>
 </div>
 
+<!-- MODAL SEPARAR (CLIENTE, PÚBLICO) -->
+<div class="separado-modal-overlay" id="cliente-separado-modal-overlay">
+  <div class="separado-modal-box">
+    <h3>Separar mi pedido</h3>
+    <p style="font-size:0.8rem;color:var(--gray);margin-bottom:10px">Déjanos tus datos y te confirmamos por WhatsApp.</p>
+    <label>Tu nombre</label>
+    <input type="text" id="cliente-separado-nombre" placeholder="Ej. María Pérez" />
+    <label>Tu WhatsApp</label>
+    <input type="tel" id="cliente-separado-telefono" placeholder="Ej. 3001234567" />
+    <div class="separado-modal-actions">
+      <button class="separado-cancel-btn" onclick="closeClienteSeparadoModal()">Cancelar</button>
+      <button class="separado-confirm-btn" onclick="confirmClienteSeparado()">Separar</button>
+    </div>
+  </div>
+</div>
+
 <!-- PANEL PRIVADO: CONSULTAR SEPARADOS -->
 <div class="separado-modal-overlay" id="panel-overlay">
   <div class="separado-modal-box" style="max-width:480px;max-height:85vh;overflow-y:auto">
@@ -1292,6 +1314,7 @@
       </div>
       <button class="btn-checkout" id="btn-whatsapp-checkout" onclick="sendCartToWhatsApp()">💬 Enviar pedido por WhatsApp</button>
       <button class="btn-checkout" id="btn-guardar-separado" style="display:none;background:var(--gold);margin-top:8px" onclick="openSeparadoModal()">💾 Guardar como separado</button>
+      <button class="btn-checkout" id="btn-separar-cliente" style="background:var(--olive);margin-top:8px" onclick="openClienteSeparadoModal()">🔖 Separar este pedido</button>
     </div>
   </div>
 </div>
@@ -1908,6 +1931,102 @@
 
   function closeSeparadoModal() {
     document.getElementById('separado-modal-overlay').classList.remove('open');
+  }
+
+  // ===== SEPARAR (CLIENTE, PÚBLICO — sin contraseña) =====
+  function openClienteSeparadoModal() {
+    if (!cart.length) return;
+    document.getElementById('cliente-separado-nombre').value = '';
+    document.getElementById('cliente-separado-telefono').value = '';
+    document.getElementById('cliente-separado-modal-overlay').classList.add('open');
+  }
+
+  function closeClienteSeparadoModal() {
+    document.getElementById('cliente-separado-modal-overlay').classList.remove('open');
+  }
+
+  async function confirmClienteSeparado() {
+    const nombre = document.getElementById('cliente-separado-nombre').value.trim();
+    const telefono = document.getElementById('cliente-separado-telefono').value.trim();
+    if (!nombre) { alert('Escribe tu nombre.'); return; }
+    if (!telefono) { alert('Escribe tu número de WhatsApp.'); return; }
+    const confirmBtn = document.querySelector('#cliente-separado-modal-overlay .separado-confirm-btn');
+    confirmBtn.textContent = 'Guardando...';
+    confirmBtn.disabled = true;
+    try {
+      const pedidoId = await getNextPedidoId();
+      const hoy = new Date().toISOString().split('T')[0];
+      const records = cart.map(item => {
+        const p = allProducts.find(x => x.id === item.id);
+        const precioUnit = Number(
+          item.precioVarianteDetal
+            ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
+            : (priceMode === 'detal' ? p.precioDetal : p.precioMayor)
+        ) || 0;
+        return {
+          fields: {
+            'Pedido ID': pedidoId,
+            'Cliente': nombre,
+            'Teléfono': telefono,
+            'Persona que separa': 'Cliente (auto)',
+            'Código': p.codigo,
+            'Categoría': p.categoria,
+            'Cantidad': item.qty || 1,
+            'Precio': precioUnit,
+            'Estado': 'Separado',
+            'Fecha': hoy
+          }
+        };
+      });
+      const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(SEPARADOS_TABLE)}`;
+      for (let i = 0; i < records.length; i += 10) {
+        const batch = records.slice(i, i + 10);
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ records: batch })
+        });
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          const detalle = errData.error && errData.error.message ? errData.error.message : 'Error guardando en Airtable';
+          throw new Error(detalle);
+        }
+      }
+      const link = window.location.origin + window.location.pathname + '?pedido=' + pedidoId;
+      const total = cart.reduce((s, item) => {
+        const p = allProducts.find(x => x.id === item.id);
+        if (!p) return s;
+        const pu = item.precioVarianteDetal
+          ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
+          : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+        return s + pu * (item.qty || 1);
+      }, 0);
+      let msg = `¡Hola Divani Silver! Soy ${nombre} y acabo de separar el pedido #${pedidoId}:\n\n`;
+      cart.forEach((item, i) => {
+        const p = allProducts.find(x => x.id === item.id);
+        if (!p) return;
+        msg += `${i + 1}. ${p.categoria} (${p.codigo})`;
+        if (item.color) msg += ` - Talla/Color: ${item.color}`;
+        if (item.qty > 1) msg += ` - Cantidad: ${item.qty}`;
+        msg += `\n`;
+      });
+      msg += `\nTotal: ${formatPrice(total)}\nMi WhatsApp: ${telefono}\nMi separado: ${link}\n\n¡Quedo atenta a la confirmación!`;
+      closeClienteSeparadoModal();
+      cart = [];
+      updateCartBadge();
+      document.getElementById('cart-fab').style.display = 'none';
+      closeCart();
+      window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+      alert('¡Tu separado #' + pedidoId + ' quedó guardado! Guarda este link para verlo cuando quieras:\n' + link);
+    } catch (e) {
+      alert('No se pudo guardar. Intenta de nuevo.\n' + e.message);
+    } finally {
+      confirmBtn.textContent = 'Separar';
+      confirmBtn.disabled = false;
+    }
   }
 
   async function getNextPedidoId() {
