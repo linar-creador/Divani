@@ -1344,6 +1344,22 @@
     return '$' + Number(p).toLocaleString('es-CO');
   }
 
+  // Resuelve qué precio mostrar en la tarjeta de la cuadrícula.
+  // Si el producto tiene variantes (lista de precios separada por comas en Airtable),
+  // usa el precio más bajo de la lista y marca desde:true para anteponer "Desde".
+  // Si no hay ningún precio válido, value queda en 0 (se muestra "Consultar").
+  function getDisplayPrice(p, mode) {
+    const arr = mode === 'detal' ? p.preciosDetal : p.preciosMayor;
+    if (p.tieneVariantes && arr && arr.length) {
+      const validos = arr.filter(v => !isNaN(v) && v > 0);
+      if (!validos.length) return { value: 0, desde: false };
+      return { value: Math.min(...validos), desde: true };
+    }
+    const base = mode === 'detal' ? p.precioDetal : p.precioMayor;
+    const num = Number(base);
+    return { value: isNaN(num) ? 0 : num, desde: false };
+  }
+
 
 
   let cart = [];
@@ -1730,7 +1746,13 @@
           <div class="card-prices">
             <div class="price-group">
               <span class="price-label">${priceMode === 'detal' ? 'Detal' : 'Mayorista'}</span>
-              <span class="price-detal">${priceMode === 'detal' ? formatPrice(p.precioDetal) : formatPrice(p.precioMayor)}</span>
+              ${(() => {
+                const info = getDisplayPrice(p, priceMode);
+                if (!info.value) return `<span class="price-detal">Consultar</span>`;
+                return info.desde
+                  ? `<span class="price-detal"><span style="font-size:11px;font-weight:400;opacity:.7">Desde </span>${formatPrice(info.value)}</span>`
+                  : `<span class="price-detal">${formatPrice(info.value)}</span>`;
+              })()}
             </div>
             ${p.estado ? `<span class="badge badge-${isAgotado ? 'agotado' : 'disponible'}">${p.estado}</span>` : ''}
           </div>
