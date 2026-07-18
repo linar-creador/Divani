@@ -1319,6 +1319,7 @@
 <!-- TOGGLE MODO COLABORADORA -->
 <button class="admin-toggle-fab" id="admin-toggle-fab" onclick="toggleAdminMode()">Separar: OFF</button>
 <button class="admin-toggle-fab" id="panel-toggle-fab" style="bottom:140px;background:#5c5240" onclick="openPanelSeparados()">📋 Separados</button>
+<button class="admin-toggle-fab" id="export-ia-fab" style="bottom:200px;background:#3d5a4a" onclick="exportarCatalogoIA()">🤖 Exportar para IA</button>
 
 <!-- MODAL GUARDAR SEPARADO -->
 <div class="separado-modal-overlay" id="separado-modal-overlay">
@@ -2064,6 +2065,7 @@
     if (authed) {
       document.getElementById('admin-toggle-fab').classList.add('visible');
       document.getElementById('panel-toggle-fab').classList.add('visible');
+      document.getElementById('export-ia-fab').classList.add('visible');
     }
   }
 
@@ -2075,11 +2077,61 @@
       localStorage.setItem('divaniAdminAuth', 'yes');
       document.getElementById('admin-toggle-fab').classList.add('visible');
       document.getElementById('panel-toggle-fab').classList.add('visible');
+      document.getElementById('export-ia-fab').classList.add('visible');
       alert('¡Listo! Ya tienes acceso al modo colaboradora en este celular.');
     } else if (pass !== null) {
       alert('Contraseña incorrecta.');
     }
   }
+
+  // ===== EXPORTAR CATÁLOGO PARA LA IA DE WHATSAPP =====
+  // Genera un archivo .json plano con todo el catálogo (código, categoría, material,
+  // precios detal/mayorista y opciones de talla/color). Este archivo se sube al repo
+  // de GitHub, y el link "Raw" de ese archivo es lo que se le da a la IA para que
+  // pueda leer los productos sin depender de JavaScript ni de Airtable en vivo.
+  function exportarCatalogoIA() {
+    if (!allProducts || !allProducts.length) {
+      alert('Todavía no han cargado los productos, espera un momento y vuelve a intentar.');
+      return;
+    }
+    const data = allProducts
+      .filter(p => p.codigo)
+      .map(p => {
+        const item = {
+          codigo: p.codigo,
+          categoria: p.categoria,
+          material: p.material,
+          estado: p.estado || 'Disponible'
+        };
+        if (p.tieneVariantes && p.colores && p.colores.length) {
+          item.opciones = p.colores.map((c, i) => ({
+            opcion: c,
+            precioDetal: p.preciosDetal ? p.preciosDetal[i] : p.precioDetal,
+            precioMayorista: p.preciosMayor ? p.preciosMayor[i] : p.precioMayor
+          }));
+        } else {
+          item.precioDetal = p.precioDetal;
+          item.precioMayorista = p.precioMayor;
+        }
+        return item;
+      });
+    const payload = {
+      actualizado: new Date().toISOString().split('T')[0],
+      nota: 'Catálogo Divani Silver. Precios en pesos colombianos (COP). "opciones" indica tallas o colores con precio propio cuando aplica.',
+      productos: data
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'catalogo-ia.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    alert('¡Listo! Se descargó "catalogo-ia.json".\n\nSube ese archivo a tu repo de GitHub (a la misma carpeta donde está index.html), y luego dale a la IA el link "Raw" de ese archivo.\n\nCada vez que cambies precios o productos, vuelve a tocar este botón y sube el archivo de nuevo para actualizar lo que la IA sabe.');
+  }
+
 
   function toggleAdminMode() {
     adminMode = !adminMode;
