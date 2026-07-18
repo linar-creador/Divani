@@ -1655,8 +1655,9 @@
     let base = item.precioVarianteDetal
       ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
       : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+    base = Number(base) || 0;
     if (priceMode === 'mayorista' && adminMode && mayoristaAjuste) {
-      base += mayoristaAjuste;
+      base += Number(mayoristaAjuste) || 0;
     }
     return base;
   }
