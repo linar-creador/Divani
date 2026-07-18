@@ -1,0 +1,2552 @@
+{
+  "actualizado": "2026-07-18",
+  "nota": "Catálogo Divani Silver. Precios en pesos colombianos (COP). \"opciones\" indica tallas o colores con precio propio cuando aplica.",
+  "productos": [
+    {
+      "codigo": "DVS-215",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 12000,
+          "precioMayorista": 5500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 20000,
+          "precioMayorista": 10000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-128",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "75000",
+      "precioMayorista": "38000"
+    },
+    {
+      "codigo": "DVS-174",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "15000"
+    },
+    {
+      "codigo": "DVS-119",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-166",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-156",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "16500"
+    },
+    {
+      "codigo": "DVS-014",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-055",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "98000",
+      "precioMayorista": "52000"
+    },
+    {
+      "codigo": "DVS-232",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "40000",
+      "precioMayorista": "22000"
+    },
+    {
+      "codigo": "DVS-193",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "28000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-052",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "31000"
+    },
+    {
+      "codigo": "DVS-040",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "130000",
+      "precioMayorista": "68000"
+    },
+    {
+      "codigo": "DVS-001",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "11000"
+    },
+    {
+      "codigo": "DVS-139",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "110000",
+      "precioMayorista": "57000"
+    },
+    {
+      "codigo": "DVS-165",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-178",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "18000"
+    },
+    {
+      "codigo": "DVS-027",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "28000",
+      "precioMayorista": "15000"
+    },
+    {
+      "codigo": "DVS-017",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-029",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "9000"
+    },
+    {
+      "codigo": "DVS-196",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "28000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-158",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "16500"
+    },
+    {
+      "codigo": "DVS-218",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 25000,
+          "precioMayorista": 13000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-088",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "20500"
+    },
+    {
+      "codigo": "DVS-181",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "80000",
+      "precioMayorista": "37000"
+    },
+    {
+      "codigo": "DVS-145",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "19500"
+    },
+    {
+      "codigo": "DVS-112",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "16000",
+      "precioMayorista": "8500"
+    },
+    {
+      "codigo": "DVS-136",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "130000",
+      "precioMayorista": "61000"
+    },
+    {
+      "codigo": "DVS-019",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-050",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "32000"
+    },
+    {
+      "codigo": "DVS-137",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "150000",
+      "precioMayorista": "79000"
+    },
+    {
+      "codigo": "DVS-183",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "130000",
+      "precioMayorista": "70000"
+    },
+    {
+      "codigo": "DVS-206",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 18000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-176",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "19500"
+    },
+    {
+      "codigo": "DVS-125",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-032",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-007",
+      "categoria": "Anillo",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "135000",
+      "precioMayorista": "76000"
+    },
+    {
+      "codigo": "DVS-042",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "205000",
+      "precioMayorista": "111000"
+    },
+    {
+      "codigo": "DVS-104",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Balín liso",
+          "precioDetal": 20000,
+          "precioMayorista": 10000
+        },
+        {
+          "opcion": "balín diamantado",
+          "precioDetal": 25000,
+          "precioMayorista": 11000
+        },
+        {
+          "opcion": "balín corazon",
+          "precioDetal": 35000,
+          "precioMayorista": 17500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-184",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "220000",
+      "precioMayorista": "115000"
+    },
+    {
+      "codigo": "DVS-190",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "190000",
+      "precioMayorista": "85000"
+    },
+    {
+      "codigo": "DVS-110",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "5000"
+    },
+    {
+      "codigo": "DVS-059",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#10",
+          "precioDetal": 70000,
+          "precioMayorista": 34000
+        },
+        {
+          "opcion": "#8",
+          "precioDetal": 55000,
+          "precioMayorista": 26000
+        },
+        {
+          "opcion": "#5",
+          "precioDetal": 30000,
+          "precioMayorista": 14500
+        },
+        {
+          "opcion": "#4",
+          "precioDetal": 30000,
+          "precioMayorista": 14000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 25000,
+          "precioMayorista": 13000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-161",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-180",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "130000",
+      "precioMayorista": "70000"
+    },
+    {
+      "codigo": "DVS-041",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "180000",
+      "precioMayorista": "83000"
+    },
+    {
+      "codigo": "DVS-227",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "28000"
+    },
+    {
+      "codigo": "DVS-018",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-151",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "42000",
+      "precioMayorista": "21500"
+    },
+    {
+      "codigo": "DVS-113",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-214",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 18000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-222",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 18000,
+          "precioMayorista": 9000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 18000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 18000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-038",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-150",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "32000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-216",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 12000,
+          "precioMayorista": 5500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 18000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-064",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "65000",
+      "precioMayorista": "31000"
+    },
+    {
+      "codigo": "DVS-148",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "17500"
+    },
+    {
+      "codigo": "DVS-109",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "5000"
+    },
+    {
+      "codigo": "DVS-010",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "150000",
+      "precioMayorista": "82000"
+    },
+    {
+      "codigo": "DVS-126",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-152",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 18000,
+          "precioMayorista": 9500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 20000,
+          "precioMayorista": 11000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 16000,
+          "precioMayorista": 8500
+        },
+        {
+          "opcion": "#4",
+          "precioDetal": 13000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#5",
+          "precioDetal": 18000,
+          "precioMayorista": 9500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-023",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14500"
+    },
+    {
+      "codigo": "DVS-133",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "410000",
+      "precioMayorista": "208000"
+    },
+    {
+      "codigo": "DVS-131",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-034",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-140",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "335000",
+      "precioMayorista": "152000"
+    },
+    {
+      "codigo": "DVS-057",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "65000",
+      "precioMayorista": "33000"
+    },
+    {
+      "codigo": "DVS-143",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "11500"
+    },
+    {
+      "codigo": "DVS-147",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "22500"
+    },
+    {
+      "codigo": "DVS-224",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "22000"
+    },
+    {
+      "codigo": "DVS-149",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "40000",
+      "precioMayorista": "20500"
+    },
+    {
+      "codigo": "DVS-087",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "22000"
+    },
+    {
+      "codigo": "DVS-049",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "23000"
+    },
+    {
+      "codigo": "DVS-056",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "125000",
+      "precioMayorista": "74000"
+    },
+    {
+      "codigo": "DVS-223",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "65000",
+      "precioMayorista": "32000"
+    },
+    {
+      "codigo": "DVS-205",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 22000,
+          "precioMayorista": 11000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-186",
+      "categoria": "Dije",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 170000,
+          "precioMayorista": 102000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 150000,
+          "precioMayorista": 83000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 130000,
+          "precioMayorista": 79000
+        },
+        {
+          "opcion": "#4",
+          "precioDetal": 30000,
+          "precioMayorista": 14000
+        },
+        {
+          "opcion": "#5",
+          "precioDetal": 40000,
+          "precioMayorista": 22000
+        },
+        {
+          "opcion": "#6",
+          "precioDetal": 25000,
+          "precioMayorista": 10000
+        },
+        {
+          "opcion": "#7",
+          "precioDetal": 35000,
+          "precioMayorista": 14000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-217",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 20000,
+          "precioMayorista": 11000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-225",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "27000"
+    },
+    {
+      "codigo": "DVS-199",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 30000,
+          "precioMayorista": 15500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 35000,
+          "precioMayorista": 15500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-047",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "90000",
+      "precioMayorista": "44000"
+    },
+    {
+      "codigo": "DVS-179",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "32000"
+    },
+    {
+      "codigo": "DVS-124",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8500"
+    },
+    {
+      "codigo": "DVS-086",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "33000",
+      "precioMayorista": "16000"
+    },
+    {
+      "codigo": "DVS-084",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "40000",
+      "precioMayorista": "20500"
+    },
+    {
+      "codigo": "DVS-229",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "65000",
+      "precioMayorista": "34000"
+    },
+    {
+      "codigo": "DVS-067",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "25000"
+    },
+    {
+      "codigo": "DVS-076",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-212",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 20000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-044",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "150000",
+      "precioMayorista": "81000"
+    },
+    {
+      "codigo": "DVS-142",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "33000",
+      "precioMayorista": "16500"
+    },
+    {
+      "codigo": "DVS-114",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "5000"
+    },
+    {
+      "codigo": "DVS-096",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "350000",
+      "precioMayorista": "174000"
+    },
+    {
+      "codigo": "DVS-210",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 23000,
+          "precioMayorista": 12500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-083",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "21000"
+    },
+    {
+      "codigo": "DVS-073",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-106",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "9500"
+    },
+    {
+      "codigo": "DVS-207",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 18000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-144",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "32000",
+      "precioMayorista": "16000"
+    },
+    {
+      "codigo": "DVS-002",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "95000",
+      "precioMayorista": "53000"
+    },
+    {
+      "codigo": "DVS-060",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "95000",
+      "precioMayorista": "54000"
+    },
+    {
+      "codigo": "DVS-071",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "80000",
+      "precioMayorista": "39000"
+    },
+    {
+      "codigo": "DVS-063",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-191",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "130000",
+      "precioMayorista": "68000"
+    },
+    {
+      "codigo": "DVS-013",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-146",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "44000",
+      "precioMayorista": "22000"
+    },
+    {
+      "codigo": "DVS-075",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "65000",
+      "precioMayorista": "32000"
+    },
+    {
+      "codigo": "DVS-228",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "28000"
+    },
+    {
+      "codigo": "DVS-141",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "14500"
+    },
+    {
+      "codigo": "DVS-025",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12500"
+    },
+    {
+      "codigo": "DVS-213",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 18000,
+          "precioMayorista": 9500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-062",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "95000",
+      "precioMayorista": "46000"
+    },
+    {
+      "codigo": "DVS-177",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "17500"
+    },
+    {
+      "codigo": "DVS-203",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Trébol",
+          "precioDetal": 40000,
+          "precioMayorista": 23000
+        },
+        {
+          "opcion": "corazón",
+          "precioDetal": 32000,
+          "precioMayorista": 17500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-079",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "33000",
+      "precioMayorista": "12500"
+    },
+    {
+      "codigo": "DVS-105",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "16500"
+    },
+    {
+      "codigo": "DVS-115",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "5000"
+    },
+    {
+      "codigo": "DVS-200",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 30000,
+          "precioMayorista": 15500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 45000,
+          "precioMayorista": 23500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-053",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "30000"
+    },
+    {
+      "codigo": "DVS-003",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "33000",
+      "precioMayorista": "16000"
+    },
+    {
+      "codigo": "DVS-090",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "19000"
+    },
+    {
+      "codigo": "DVS-046",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "22000"
+    },
+    {
+      "codigo": "DVS-051",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "70000",
+      "precioMayorista": "33000"
+    },
+    {
+      "codigo": "DVS-235",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-170",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "13500"
+    },
+    {
+      "codigo": "DVS-081",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-048",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "110000",
+      "precioMayorista": "60000"
+    },
+    {
+      "codigo": "DVS-024",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-153",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "23000",
+      "precioMayorista": "13500"
+    },
+    {
+      "codigo": "DVS-058",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "55000",
+      "precioMayorista": "29000"
+    },
+    {
+      "codigo": "DVS-039",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "150000",
+      "precioMayorista": "78000"
+    },
+    {
+      "codigo": "DVS-011",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "185000",
+      "precioMayorista": "109000"
+    },
+    {
+      "codigo": "DVS-009",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "150000",
+      "precioMayorista": "87000"
+    },
+    {
+      "codigo": "DVS-031",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-061",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "79000",
+      "precioMayorista": "37000"
+    },
+    {
+      "codigo": "DVS-231",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-015",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-020",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-192",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "189000",
+      "precioMayorista": "87000"
+    },
+    {
+      "codigo": "DVS-171",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "18000"
+    },
+    {
+      "codigo": "DVS-099",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "520000",
+      "precioMayorista": "351000"
+    },
+    {
+      "codigo": "DVS-132",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-221",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 18000,
+          "precioMayorista": 9500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 10000,
+          "precioMayorista": 5000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 20000,
+          "precioMayorista": 10000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-195",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "15000"
+    },
+    {
+      "codigo": "DVS-036",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-197",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-189",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "95000",
+      "precioMayorista": "47000"
+    },
+    {
+      "codigo": "DVS-122",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-089",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "22000",
+      "precioMayorista": "11500"
+    },
+    {
+      "codigo": "DVS-118",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-220",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 12000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 18000,
+          "precioMayorista": 10000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-135",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "210000",
+      "precioMayorista": "107000"
+    },
+    {
+      "codigo": "DVS-111",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "6000"
+    },
+    {
+      "codigo": "DVS-162",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-030",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "15000"
+    },
+    {
+      "codigo": "DVS-108",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Gucci",
+          "precioDetal": 30000,
+          "precioMayorista": 13500
+        },
+        {
+          "opcion": "vancleef",
+          "precioDetal": 35000,
+          "precioMayorista": 17000
+        },
+        {
+          "opcion": "religiosa",
+          "precioDetal": 35000,
+          "precioMayorista": 17000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-219",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 15000,
+          "precioMayorista": 7500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 12000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 20000,
+          "precioMayorista": 12000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-120",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8500"
+    },
+    {
+      "codigo": "DVS-022",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-188",
+      "categoria": "Dije",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 60000,
+          "precioMayorista": 31000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 35000,
+          "precioMayorista": 18000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 50000,
+          "precioMayorista": 28000
+        },
+        {
+          "opcion": "#4",
+          "precioDetal": 65000,
+          "precioMayorista": 38000
+        },
+        {
+          "opcion": "#5",
+          "precioDetal": 65000,
+          "precioMayorista": 38000
+        },
+        {
+          "opcion": "#6",
+          "precioDetal": 70000,
+          "precioMayorista": 39000
+        },
+        {
+          "opcion": "#7",
+          "precioDetal": 65000,
+          "precioMayorista": 33000
+        },
+        {
+          "opcion": "#8",
+          "precioDetal": 75000,
+          "precioMayorista": 40000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-208",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 23000,
+          "precioMayorista": 12500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-006",
+      "categoria": "Anillo",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "70000",
+      "precioMayorista": "34000"
+    },
+    {
+      "codigo": "DVS-101",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Grande",
+          "precioDetal": 35000,
+          "precioMayorista": 13000
+        },
+        {
+          "opcion": "mediano",
+          "precioDetal": 30000,
+          "precioMayorista": 9500
+        },
+        {
+          "opcion": "pequeño",
+          "precioDetal": 30000,
+          "precioMayorista": 9500
+        },
+        {
+          "opcion": "mini",
+          "precioDetal": 25000,
+          "precioMayorista": 8500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-091",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "50cm",
+          "precioDetal": 150000,
+          "precioMayorista": 70000
+        },
+        {
+          "opcion": "60 cm",
+          "precioDetal": 250000,
+          "precioMayorista": 116000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-155",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 25000,
+          "precioMayorista": 13500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-080",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "33000",
+      "precioMayorista": "12500"
+    },
+    {
+      "codigo": "DVS-198",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "28000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-100",
+      "categoria": "Arete",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Grande",
+          "precioDetal": 30000,
+          "precioMayorista": 13000
+        },
+        {
+          "opcion": "mediano",
+          "precioDetal": 0,
+          "precioMayorista": 13000
+        },
+        {
+          "opcion": "pequeño",
+          "precioMayorista": 9500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-121",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-005",
+      "categoria": "Anillo",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "110000",
+      "precioMayorista": "62000"
+    },
+    {
+      "codigo": "DVS-021",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-026",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12500"
+    },
+    {
+      "codigo": "DVS-134",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "120000",
+      "precioMayorista": "52000"
+    },
+    {
+      "codigo": "DVS-164",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-016",
+      "categoria": "Set Aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14500"
+    },
+    {
+      "codigo": "DVS-185",
+      "categoria": "Dije",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 80000,
+          "precioMayorista": 49000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 75000,
+          "precioMayorista": 41000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 78000,
+          "precioMayorista": 43000
+        },
+        {
+          "opcion": "#4",
+          "precioDetal": 78000,
+          "precioMayorista": 43000
+        },
+        {
+          "opcion": "#5",
+          "precioDetal": 30000,
+          "precioMayorista": 12000
+        },
+        {
+          "opcion": "#6",
+          "precioDetal": 70000,
+          "precioMayorista": 36000
+        },
+        {
+          "opcion": "#7",
+          "precioDetal": 35000,
+          "precioMayorista": 45000
+        },
+        {
+          "opcion": "#8",
+          "precioMayorista": 17000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-054",
+      "categoria": "Arete",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "105000",
+      "precioMayorista": "60000"
+    },
+    {
+      "codigo": "DVS-157",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "16500"
+    },
+    {
+      "codigo": "DVS-127",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-187",
+      "categoria": "Dije",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 110000,
+          "precioMayorista": 57000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 75000,
+          "precioMayorista": 40000
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 80000,
+          "precioMayorista": 43000
+        },
+        {
+          "opcion": "#4",
+          "precioDetal": 85000,
+          "precioMayorista": 46000
+        },
+        {
+          "opcion": "#5",
+          "precioDetal": 48000,
+          "precioMayorista": 25000
+        },
+        {
+          "opcion": "#6",
+          "precioDetal": 35000,
+          "precioMayorista": 17000
+        },
+        {
+          "opcion": "#7",
+          "precioDetal": 33000,
+          "precioMayorista": 15000
+        },
+        {
+          "opcion": "#8",
+          "precioDetal": 38000,
+          "precioMayorista": 18000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-004",
+      "categoria": "Anillo",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "70000",
+      "precioMayorista": "36000"
+    },
+    {
+      "codigo": "DVS-230",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "55000",
+      "precioMayorista": "26000"
+    },
+    {
+      "codigo": "DVS-008",
+      "categoria": "Anillo",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "120000",
+      "precioMayorista": "55000"
+    },
+    {
+      "codigo": "DVS-082",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-066",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "98000",
+      "precioMayorista": "46000"
+    },
+    {
+      "codigo": "DVS-159",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "16500"
+    },
+    {
+      "codigo": "DVS-074",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "33000",
+      "precioMayorista": "15000"
+    },
+    {
+      "codigo": "DVS-069",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "80000",
+      "precioMayorista": "37000"
+    },
+    {
+      "codigo": "DVS-202",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Espiga",
+          "precioDetal": 40000,
+          "precioMayorista": 23000
+        },
+        {
+          "opcion": "estrella",
+          "precioDetal": 40000,
+          "precioMayorista": 19500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-172",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "28000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-201",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Virgen",
+          "precioDetal": 45000,
+          "precioMayorista": 26000
+        },
+        {
+          "opcion": "cruz",
+          "precioDetal": 45000,
+          "precioMayorista": 26000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-168",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-045",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "80000",
+      "precioMayorista": "45000"
+    },
+    {
+      "codigo": "DVS-116",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "6000"
+    },
+    {
+      "codigo": "DVS-107",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 12000,
+          "precioMayorista": 5000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 10000,
+          "precioMayorista": 4500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-163",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-078",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "30000",
+      "precioMayorista": "12500"
+    },
+    {
+      "codigo": "DVS-077",
+      "categoria": "Rosario",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "18000"
+    },
+    {
+      "codigo": "DVS-175",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "18500"
+    },
+    {
+      "codigo": "DVS-117",
+      "categoria": "Candonga",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "12000",
+      "precioMayorista": "5000"
+    },
+    {
+      "codigo": "DVS-169",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-095",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "45cm",
+          "precioDetal": 85000,
+          "precioMayorista": 48000
+        },
+        {
+          "opcion": "60cm",
+          "precioDetal": 130000,
+          "precioMayorista": 66000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-072",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "85000",
+      "precioMayorista": "42000"
+    },
+    {
+      "codigo": "DVS-097",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "490000",
+      "precioMayorista": "364000"
+    },
+    {
+      "codigo": "DVS-204",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Corazón",
+          "precioDetal": 40000,
+          "precioMayorista": 23000
+        },
+        {
+          "opcion": "virgen",
+          "precioDetal": 30000,
+          "precioMayorista": 15500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-065",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "150000",
+      "precioMayorista": "66000"
+    },
+    {
+      "codigo": "DVS-237",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "17000"
+    },
+    {
+      "codigo": "DVS-092",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-130",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-028",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "18000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-194",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "28000",
+      "precioMayorista": "13000"
+    },
+    {
+      "codigo": "DVS-160",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-033",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "15500"
+    },
+    {
+      "codigo": "DVS-037",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "38000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-233",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "40000",
+      "precioMayorista": "19000"
+    },
+    {
+      "codigo": "DVS-035",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "35000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-043",
+      "categoria": "Dije",
+      "material": "Oro laminado",
+      "estado": "Disponible",
+      "precioDetal": "75000",
+      "precioMayorista": "38000"
+    },
+    {
+      "codigo": "DVS-226",
+      "categoria": "Arete",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "60000",
+      "precioMayorista": "34000"
+    },
+    {
+      "codigo": "DVS-123",
+      "categoria": "Anillo",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "20000",
+      "precioMayorista": "8000"
+    },
+    {
+      "codigo": "DVS-234",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "48000",
+      "precioMayorista": "25000"
+    },
+    {
+      "codigo": "DVS-173",
+      "categoria": "Set collar y aretes",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "12000"
+    },
+    {
+      "codigo": "DVS-167",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "15000",
+      "precioMayorista": "7500"
+    },
+    {
+      "codigo": "DVS-154",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 30000,
+          "precioMayorista": 18000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 25000,
+          "precioMayorista": 14000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-236",
+      "categoria": "Rosario",
+      "material": "Acero",
+      "estado": "Disponible",
+      "precioDetal": "45000",
+      "precioMayorista": "22000"
+    },
+    {
+      "codigo": "DVS-103",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 23000,
+          "precioMayorista": 11000
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 23000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 25000,
+          "precioMayorista": 11500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-070",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "199000",
+      "precioMayorista": "98000"
+    },
+    {
+      "codigo": "DVS-138",
+      "categoria": "Cadena",
+      "material": "Laminado",
+      "estado": "Disponible",
+      "precioDetal": "170000",
+      "precioMayorista": "88000"
+    },
+    {
+      "codigo": "DVS-012",
+      "categoria": "Set collar y aretes",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "185000",
+      "precioMayorista": "109000"
+    },
+    {
+      "codigo": "DVS-094",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "230000",
+      "precioMayorista": "108000"
+    },
+    {
+      "codigo": "DVS-102",
+      "categoria": "Pulsera",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "Chinesca",
+          "precioDetal": 30000,
+          "precioMayorista": 14000
+        },
+        {
+          "opcion": "Gucci",
+          "precioDetal": 35000,
+          "precioMayorista": 16000
+        },
+        {
+          "opcion": "corazón",
+          "precioDetal": 35000,
+          "precioMayorista": 16500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-093",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "270000",
+      "precioMayorista": "154000"
+    },
+    {
+      "codigo": "DVS-085",
+      "categoria": "Cadena",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "precioDetal": "25000",
+      "precioMayorista": "14000"
+    },
+    {
+      "codigo": "DVS-209",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 20000,
+          "precioMayorista": 10000
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-211",
+      "categoria": "Arete",
+      "material": "Covergold",
+      "estado": "Disponible",
+      "opciones": [
+        {
+          "opcion": "#1",
+          "precioDetal": 20000,
+          "precioMayorista": 10500
+        },
+        {
+          "opcion": "#2",
+          "precioDetal": 15000,
+          "precioMayorista": 6500
+        },
+        {
+          "opcion": "#3",
+          "precioDetal": 22000,
+          "precioMayorista": 10500
+        }
+      ]
+    },
+    {
+      "codigo": "DVS-182",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "110000",
+      "precioMayorista": "57000"
+    },
+    {
+      "codigo": "DVS-098",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "39000",
+      "precioMayorista": "249000"
+    },
+    {
+      "codigo": "DVS-068",
+      "categoria": "Cadena",
+      "material": "Plata",
+      "estado": "Disponible",
+      "precioDetal": "180000",
+      "precioMayorista": "89000"
+    }
+  ]
+}
