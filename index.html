@@ -2101,7 +2101,9 @@
           codigo: p.codigo,
           categoria: p.categoria,
           material: p.material,
-          estado: p.estado || 'Disponible'
+          estado: p.estado || 'Disponible',
+          descripcion: p.descripcion || '',
+          foto: p.foto || ''
         };
         if (p.tieneVariantes && p.colores && p.colores.length) {
           item.opciones = p.colores.map((c, i) => ({
@@ -2117,7 +2119,7 @@
       });
     const payload = {
       actualizado: new Date().toISOString().split('T')[0],
-      nota: 'Catálogo Divani Silver. Precios en pesos colombianos (COP). "opciones" indica tallas o colores con precio propio cuando aplica.',
+      nota: 'Catálogo Divani Silver. Precios en pesos colombianos (COP). "opciones" indica tallas o colores con precio propio cuando aplica. "foto" es el link directo a la imagen del producto.',
       productos: data
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
