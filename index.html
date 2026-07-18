@@ -911,6 +911,84 @@
       font-size: 0.9rem;
     }
 
+    #mayorista-ajuste-row {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    #ajuste-toggle-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid #E4DCC8;
+      background: var(--beige);
+      color: var(--gray);
+      font-size: 0.8rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+    }
+
+    #ajuste-panel {
+      position: absolute;
+      right: 0;
+      top: 30px;
+      z-index: 20;
+      background: var(--white);
+      border: 1px solid #E4DCC8;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      width: 220px;
+    }
+
+    .ajuste-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .ajuste-preset-btn {
+      border: 1px solid var(--gold);
+      background: var(--white);
+      color: var(--dark);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .ajuste-preset-btn.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    .ajuste-custom {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ajuste-custom input {
+      flex: 1;
+      padding: 5px 8px;
+      border: 1px solid #D9D0BC;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    #ajuste-close-btn {
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 4px 6px;
+    }
+
     .cart-total {
       display: flex;
       justify-content: space-between;
@@ -1308,8 +1386,25 @@
     </div>
     <div id="cart-items"></div>
     <div id="cart-footer" style="display:none">
+      <div id="mayorista-ajuste-row" style="display:none">
+        <button type="button" id="ajuste-toggle-btn" onclick="toggleAjustePanel()">⚙</button>
+        <div id="ajuste-panel" style="display:none">
+          <div class="ajuste-presets">
+            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(0)">Base</button>
+            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(1000)">+1.000</button>
+            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(2000)">+2.000</button>
+            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(3000)">+3.000</button>
+            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(5000)">+5.000</button>
+            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(7000)">+7.000</button>
+          </div>
+          <div class="ajuste-custom">
+            <input type="number" id="mayorista-ajuste-input" step="500" min="0" value="0" oninput="onAjusteInput(this.value)" />
+            <button type="button" id="ajuste-close-btn" onclick="toggleAjustePanel()">✕</button>
+          </div>
+        </div>
+      </div>
       <div class="cart-total">
-        <span class="cart-total-label">Total detal</span>
+        <span class="cart-total-label" id="cart-total-label">Total detal</span>
         <span class="cart-total-value" id="cart-total">$0</span>
       </div>
       <button class="btn-checkout" id="btn-whatsapp-checkout" onclick="sendCartToWhatsApp()">💬 Enviar pedido por WhatsApp</button>
@@ -1451,6 +1546,14 @@
   function renderCart() {
     const container = document.getElementById('cart-items');
     const footer = document.getElementById('cart-footer');
+    const ajusteRow = document.getElementById('mayorista-ajuste-row');
+    const showAjuste = priceMode === 'mayorista' && adminMode;
+    if (ajusteRow) ajusteRow.style.display = showAjuste ? 'flex' : 'none';
+    if (!showAjuste) {
+      mayoristaAjuste = 0;
+      const panel = document.getElementById('ajuste-panel');
+      if (panel) panel.style.display = 'none';
+    }
     if (!cart.length) {
       container.innerHTML = '<div class="cart-empty">Tu carrito está vacío 🛒</div>';
       footer.style.display = 'none';
@@ -1460,9 +1563,7 @@
     container.innerHTML = cart.map((item, idx) => {
       const p = allProducts.find(x => x.id === item.id);
       if (!p) return '';
-      const precioUnit = item.precioVarianteDetal
-        ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-        : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+      const precioUnit = getUnitPrice(item, p);
       const precio = precioUnit * (item.qty || 1);
       total += precio;
       return `
@@ -1481,8 +1582,35 @@
           <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
         </div>`;
     }).join('');
+    const label = document.getElementById('cart-total-label');
+    if (label) {
+      label.textContent = priceMode === 'detal' ? 'Total detal' : 'Total mayorista';
+    }
     document.getElementById('cart-total').textContent = formatPrice(total);
     footer.style.display = 'block';
+  }
+
+  function toggleAjustePanel() {
+    const panel = document.getElementById('ajuste-panel');
+    if (!panel) return;
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function setAjuste(v) {
+    mayoristaAjuste = Number(v) || 0;
+    const input = document.getElementById('mayorista-ajuste-input');
+    if (input) input.value = mayoristaAjuste;
+    document.querySelectorAll('.ajuste-preset-btn').forEach(btn => {
+      const btnVal = Number(btn.textContent.replace(/[^\d]/g, '') || 0);
+      btn.classList.toggle('active', btnVal === mayoristaAjuste);
+    });
+    renderCart();
+  }
+
+  function onAjusteInput(v) {
+    mayoristaAjuste = Number(v) || 0;
+    document.querySelectorAll('.ajuste-preset-btn').forEach(btn => btn.classList.remove('active'));
+    renderCart();
   }
 
   function sendCartToWhatsApp() {
@@ -1494,17 +1622,12 @@
       msg += `${i+1}. ${p.categoria} (${p.codigo})`;
       if (item.color) msg += ` - Talla/Color: ${item.color}`;
       if (item.qty > 1) msg += ` - Cantidad: ${item.qty}`;
-      const precioUnit = item.precioVarianteDetal
-        ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-        : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
-      msg += ` - ${formatPrice(precioUnit)}\n`;
+      const precioUnit = getUnitPrice(item, p);
     });
     const total = cart.reduce((s, item) => {
       const p = allProducts.find(x => x.id === item.id);
       if (!p) return s;
-      const pu = item.precioVarianteDetal
-        ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-        : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+      const pu = getUnitPrice(item, p);
       return s + pu * (item.qty || 1);
     }, 0);
     msg += `\nTotal: ${formatPrice(total)}\n\n¿Pueden confirmar disponibilidad?`;
@@ -1522,6 +1645,21 @@
   }
 
   let priceMode = localStorage.getItem('divaniPriceMode') || 'detal'; // 'detal' or 'mayorista'
+
+  // Ajuste esporádico al precio mayorista (solo aplica en modo colaboradora,
+  // para mayoristas ocasionales que compran un poco más caro que el precio base).
+  // Vive solo en memoria: se resetea a 0 cada vez que se activa "Separar" o se guarda un separado.
+  let mayoristaAjuste = 0;
+
+  function getUnitPrice(item, p) {
+    let base = item.precioVarianteDetal
+      ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
+      : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+    if (priceMode === 'mayorista' && adminMode && mayoristaAjuste) {
+      base += mayoristaAjuste;
+    }
+    return base;
+  }
 
   function setMode(mode) {
     priceMode = mode;
@@ -1930,10 +2068,12 @@
 
   function toggleAdminMode() {
     adminMode = !adminMode;
+    mayoristaAjuste = 0;
     document.getElementById('admin-banner').classList.toggle('active', adminMode);
     document.getElementById('admin-toggle-fab').classList.toggle('on', adminMode);
     document.getElementById('admin-toggle-fab').textContent = adminMode ? 'Separar: ON' : 'Separar: OFF';
     updateCheckoutButtons();
+    renderCart();
   }
 
   function updateCheckoutButtons() {
@@ -1980,11 +2120,7 @@
       const hoy = new Date().toISOString().split('T')[0];
       const records = cart.map(item => {
         const p = allProducts.find(x => x.id === item.id);
-        const precioUnit = Number(
-          item.precioVarianteDetal
-            ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-            : (priceMode === 'detal' ? p.precioDetal : p.precioMayor)
-        ) || 0;
+        const precioUnit = Number(getUnitPrice(item, p)) || 0;
         return {
           fields: {
             'Pedido ID': pedidoId,
@@ -2021,9 +2157,7 @@
       const total = cart.reduce((s, item) => {
         const p = allProducts.find(x => x.id === item.id);
         if (!p) return s;
-        const pu = item.precioVarianteDetal
-          ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-          : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
+        const pu = getUnitPrice(item, p);
         return s + pu * (item.qty || 1);
       }, 0);
       let msg = `¡Hola Divani Silver! Soy ${nombre} y acabo de separar el pedido #${pedidoId}:\n\n`;
@@ -2074,11 +2208,7 @@
       const hoy = new Date().toISOString().split('T')[0];
       const records = cart.map(item => {
         const p = allProducts.find(x => x.id === item.id);
-        const precioUnit = Number(
-          item.precioVarianteDetal
-            ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
-            : (priceMode === 'detal' ? p.precioDetal : p.precioMayor)
-        ) || 0;
+        const precioUnit = Number(getUnitPrice(item, p)) || 0;
         return {
           fields: {
             'Pedido ID': pedidoId,
@@ -2113,6 +2243,7 @@
       const link = window.location.origin + window.location.pathname + '?pedido=' + pedidoId;
       closeSeparadoModal();
       cart = [];
+      mayoristaAjuste = 0;
       updateCartBadge();
       document.getElementById('cart-fab').style.display = 'none';
       closeCart();
