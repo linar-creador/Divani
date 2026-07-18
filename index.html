@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo Divani Silver</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
     :root {
       --beige: #F5F0E8;
@@ -1319,7 +1320,7 @@
 <!-- TOGGLE MODO COLABORADORA -->
 <button class="admin-toggle-fab" id="admin-toggle-fab" onclick="toggleAdminMode()">Separar: OFF</button>
 <button class="admin-toggle-fab" id="panel-toggle-fab" style="bottom:140px;background:#5c5240" onclick="openPanelSeparados()">📋 Separados</button>
-<button class="admin-toggle-fab" id="export-ia-fab" style="bottom:200px;background:#3d5a4a" onclick="exportarCatalogoIA()">🤖 Exportar para IA</button>
+<button class="admin-toggle-fab" id="ia-tools-fab" style="bottom:200px;background:#3d5a4a" onclick="openIaToolsModal()">🤖 Herramientas IA</button>
 
 <!-- MODAL GUARDAR SEPARADO -->
 <div class="separado-modal-overlay" id="separado-modal-overlay">
@@ -1354,6 +1355,30 @@
     <div class="separado-modal-actions">
       <button class="separado-cancel-btn" onclick="closeClienteSeparadoModal()">Cancelar</button>
       <button class="separado-confirm-btn" onclick="confirmClienteSeparado()">Separar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: HERRAMIENTAS PARA LA IA (agrupa exportar catálogo + descargar fotos) -->
+<div class="separado-modal-overlay" id="ia-tools-modal-overlay">
+  <div class="separado-modal-box" style="max-width:400px">
+    <h3>🤖 Herramientas para la IA</h3>
+    <p style="font-size:0.85rem;color:var(--gray);margin:0 0 14px">Para que Auri (u otra IA) pueda leer tu catálogo. Sigue el orden: primero las fotos, luego el catálogo.</p>
+
+    <div style="border:1px solid #E4DCC8;border-radius:10px;padding:12px;margin-bottom:10px">
+      <div style="font-weight:600;margin-bottom:4px">1. Fotos permanentes</div>
+      <div style="font-size:0.8rem;color:var(--gray);margin-bottom:8px">Baja un .zip con la foto de cada producto, para subirlas a una carpeta "imagenes" en GitHub (los links de Airtable se vencen).</div>
+      <button class="separado-confirm-btn" id="fotos-zip-btn-inner" style="width:100%" onclick="descargarFotosZip()">📦 Descargar fotos (.zip)</button>
+    </div>
+
+    <div style="border:1px solid #E4DCC8;border-radius:10px;padding:12px;margin-bottom:14px">
+      <div style="font-weight:600;margin-bottom:4px">2. Catálogo para la IA</div>
+      <div style="font-size:0.8rem;color:var(--gray);margin-bottom:8px">Baja el .json con productos, precios, descripciones y fotos (ya subidas en el paso 1).</div>
+      <button class="separado-confirm-btn" style="width:100%" onclick="exportarCatalogoIA()">🤖 Exportar catálogo (.json)</button>
+    </div>
+
+    <div class="separado-modal-actions">
+      <button class="separado-cancel-btn" onclick="closeIaToolsModal()">Cerrar</button>
     </div>
   </div>
 </div>
@@ -2065,7 +2090,7 @@
     if (authed) {
       document.getElementById('admin-toggle-fab').classList.add('visible');
       document.getElementById('panel-toggle-fab').classList.add('visible');
-      document.getElementById('export-ia-fab').classList.add('visible');
+      document.getElementById('ia-tools-fab').classList.add('visible');
     }
   }
 
@@ -2077,18 +2102,62 @@
       localStorage.setItem('divaniAdminAuth', 'yes');
       document.getElementById('admin-toggle-fab').classList.add('visible');
       document.getElementById('panel-toggle-fab').classList.add('visible');
-      document.getElementById('export-ia-fab').classList.add('visible');
+      document.getElementById('ia-tools-fab').classList.add('visible');
       alert('¡Listo! Ya tienes acceso al modo colaboradora en este celular.');
     } else if (pass !== null) {
       alert('Contraseña incorrecta.');
     }
   }
 
+  function openIaToolsModal() {
+    document.getElementById('ia-tools-modal-overlay').classList.add('open');
+  }
+
+  function closeIaToolsModal() {
+    document.getElementById('ia-tools-modal-overlay').classList.remove('open');
+  }
+
   // ===== EXPORTAR CATÁLOGO PARA LA IA DE WHATSAPP =====
-  // Genera un archivo .json plano con todo el catálogo (código, categoría, material,
-  // precios detal/mayorista y opciones de talla/color). Este archivo se sube al repo
-  // de GitHub, y el link "Raw" de ese archivo es lo que se le da a la IA para que
+  // Genera un archivo .json plano con todo el catálogo (código, nombre, etiquetas,
+  // categoría, material, precios detal/mayorista, foto y opciones de talla/color).
+  // "nombre" y "etiquetas" se derivan automáticamente de la Descripción en Airtable,
+  // así no hay que llenar campos nuevos a mano. Este archivo se sube al repo de
+  // GitHub, y el link "Raw" de ese archivo es lo que se le da a la IA para que
   // pueda leer los productos sin depender de JavaScript ni de Airtable en vivo.
+  const ES_STOPWORDS = new Set(['de','la','el','en','con','y','un','una','unos','unas','para','los','las','del',
+    'que','es','su','sus','por','al','lo','este','esta','estos','estas','se','sin','mas','muy','tiene','como',
+    'nuestro','nuestra','ideal','perfecto','perfecta','diseno','estilo','pieza']);
+
+  function derivarNombre(p) {
+    const desc = (p.descripcion || '').trim();
+    if (desc) {
+      const primeraFrase = desc.split(/[.!\n]/)[0].trim();
+      if (primeraFrase.length > 4 && primeraFrase.length <= 45) return primeraFrase;
+      const primeraParteComa = primeraFrase.split(',')[0].trim();
+      if (primeraParteComa.length > 4 && primeraParteComa.length <= 45) return primeraParteComa;
+      const primerasPalabras = desc.split(/\s+/).slice(0, 6).join(' ').trim();
+      if (primerasPalabras.length > 4) return primerasPalabras;
+    }
+    return [p.categoria, p.material].filter(Boolean).join(' ') || p.codigo;
+  }
+
+  function derivarEtiquetas(p) {
+    const texto = [p.categoria, p.material, ...(p.colores || []), p.descripcion || '']
+      .join(' ')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // quita tildes para que "corazón"/"corazon" matcheen igual
+    const palabras = texto.match(/[a-z]{3,}/g) || [];
+    const vistas = new Set();
+    const etiquetas = [];
+    palabras.forEach(w => {
+      if (!ES_STOPWORDS.has(w) && !vistas.has(w)) {
+        vistas.add(w);
+        etiquetas.push(w);
+      }
+    });
+    return etiquetas.slice(0, 10);
+  }
+
   function exportarCatalogoIA() {
     if (!allProducts || !allProducts.length) {
       alert('Todavía no han cargado los productos, espera un momento y vuelve a intentar.');
@@ -2099,11 +2168,13 @@
       .map(p => {
         const item = {
           codigo: p.codigo,
+          nombre: derivarNombre(p),
+          etiquetas: derivarEtiquetas(p),
           categoria: p.categoria,
           material: p.material,
           estado: p.estado || 'Disponible',
           descripcion: p.descripcion || '',
-          foto: p.foto || ''
+          foto: p.foto ? `https://raw.githubusercontent.com/linar-creador/Divani/main/imagenes/${p.codigo}.jpg` : ''
         };
         if (p.tieneVariantes && p.colores && p.colores.length) {
           item.opciones = p.colores.map((c, i) => ({
@@ -2119,7 +2190,7 @@
       });
     const payload = {
       actualizado: new Date().toISOString().split('T')[0],
-      nota: 'Catálogo Divani Silver. Precios en pesos colombianos (COP). "opciones" indica tallas o colores con precio propio cuando aplica. "foto" es el link directo a la imagen del producto.',
+      nota: 'Catálogo Divani Silver. Precios en pesos colombianos (COP). "nombre" y "etiquetas" se generan automáticamente desde la descripción del producto. "opciones" indica tallas o colores con precio propio cuando aplica. "foto" es un link permanente (no vencido) — para que funcione, las imágenes deben estar subidas en la carpeta /imagenes del repo.',
       productos: data
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -2131,7 +2202,63 @@
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    alert('¡Listo! Se descargó "catalogo-ia.json".\n\nSube ese archivo a tu repo de GitHub (a la misma carpeta donde está index.html), y luego dale a la IA el link "Raw" de ese archivo.\n\nCada vez que cambies precios o productos, vuelve a tocar este botón y sube el archivo de nuevo para actualizar lo que la IA sabe.');
+    alert('¡Listo! Se descargó "catalogo-ia.json".\n\nSube ese archivo a tu repo de GitHub (a la misma carpeta donde está index.html), y luego dale a la IA el link "Raw" de ese archivo.\n\nCada vez que cambies precios o productos, vuelve a tocar este botón y sube el archivo de nuevo para actualizar lo que la IA sabe.\n\nOJO: para que las fotos funcionen de verdad, primero usa el botón "📦 Fotos para GitHub" y sube esas imágenes a una carpeta llamada "imagenes" en tu repo — los links de Airtable se vencen a las 2 horas.');
+  }
+
+  // ===== DESCARGAR TODAS LAS FOTOS EN UN .ZIP (para hospedarlas permanentemente en GitHub) =====
+  // Las fotos que da Airtable por la API se vencen ~2 horas después de pedirlas, así que
+  // no sirven para un archivo estático que la IA va a leer días después. Esta función baja
+  // la foto actual de cada producto (fresca, recién pedida a Airtable) y arma un .zip con
+  // todas, nombradas por código, para que las subas tú a una carpeta "imagenes" en GitHub.
+  async function descargarFotosZip() {
+    if (!allProducts || !allProducts.length) {
+      alert('Todavía no han cargado los productos, espera un momento y vuelve a intentar.');
+      return;
+    }
+    if (typeof JSZip === 'undefined') {
+      alert('No se pudo cargar la herramienta para armar el .zip. Revisa tu conexión e intenta de nuevo.');
+      return;
+    }
+    const btn = document.getElementById('fotos-zip-btn-inner');
+    const conFoto = allProducts.filter(p => p.codigo && p.foto);
+    if (!conFoto.length) {
+      alert('Ningún producto tiene foto cargada en Airtable todavía.');
+      return;
+    }
+    const zip = new JSZip();
+    let ok = 0;
+    const fallidos = [];
+    for (let i = 0; i < conFoto.length; i++) {
+      const p = conFoto[i];
+      if (btn) btn.textContent = `📦 Descargando ${i + 1}/${conFoto.length}...`;
+      try {
+        const res = await fetch(p.foto);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const blob = await res.blob();
+        zip.file(`${p.codigo}.jpg`, blob);
+        ok++;
+      } catch (e) {
+        fallidos.push(p.codigo);
+      }
+    }
+    if (btn) btn.textContent = '📦 Armando .zip...';
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(zipBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'imagenes-divani.zip';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    if (btn) btn.textContent = '📦 Descargar fotos (.zip)';
+    let msg = `¡Listo! Se descargaron ${ok} de ${conFoto.length} fotos en "imagenes-divani.zip".\n\n` +
+      'Ahora en GitHub: crea una carpeta llamada "imagenes" en tu repo (al subir archivos, escribe "imagenes/" antes del nombre y GitHub la crea sola), y sube ahí TODAS las fotos del zip (descomprímelo primero).\n\n' +
+      'Después de subir las fotos, vuelve a tocar "🤖 Exportar para IA" para que el catálogo apunte a esas fotos permanentes.';
+    if (fallidos.length) {
+      msg += `\n\n⚠️ No se pudieron descargar ${fallidos.length} fotos (puede que el link ya estuviera vencido): ${fallidos.slice(0, 15).join(', ')}${fallidos.length > 15 ? '...' : ''}. Vuelve a intentar con esos productos.`;
+    }
+    alert(msg);
   }
 
 
