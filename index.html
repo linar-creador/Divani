@@ -1357,6 +1357,20 @@
   </div>
 </div>
 
+<!-- MODAL: LINK GUARDADO (con botón de copiar) -->
+<div class="separado-modal-overlay" id="link-modal-overlay">
+  <div class="separado-modal-box" style="max-width:380px">
+    <h3 id="link-modal-title">¡Guardado!</h3>
+    <p id="link-modal-msg" style="font-size:0.9rem;color:var(--gray);margin:0 0 10px"></p>
+    <input type="text" id="link-modal-input" readonly onclick="this.select()"
+      style="width:100%;box-sizing:border-box;padding:10px;border:1px solid #D9D0BC;border-radius:8px;font-size:0.85rem;margin-bottom:10px" />
+    <div class="separado-modal-actions">
+      <button class="separado-cancel-btn" onclick="closeLinkModal()">Cerrar</button>
+      <button class="separado-confirm-btn" id="link-modal-copy-btn" onclick="copyLinkModal()">📋 Copiar link</button>
+    </div>
+  </div>
+</div>
+
 <!-- PANEL PRIVADO: CONSULTAR SEPARADOS -->
 <div class="separado-modal-overlay" id="panel-overlay">
   <div class="separado-modal-box" style="max-width:480px;max-height:85vh;overflow-y:auto">
@@ -2084,6 +2098,42 @@
     guardar.style.display = adminMode ? 'block' : 'none';
   }
 
+  // ===== MODAL DE LINK CON BOTÓN DE COPIAR (reemplaza al prompt() nativo) =====
+  function showLinkModal(title, msg, link) {
+    document.getElementById('link-modal-title').textContent = title;
+    document.getElementById('link-modal-msg').textContent = msg;
+    const input = document.getElementById('link-modal-input');
+    input.value = link;
+    document.getElementById('link-modal-copy-btn').textContent = '📋 Copiar link';
+    document.getElementById('link-modal-overlay').classList.add('open');
+    // en desktop conviene dejarlo ya seleccionado; en celular basta con el botón
+    setTimeout(() => input.select(), 150);
+  }
+
+  function closeLinkModal() {
+    document.getElementById('link-modal-overlay').classList.remove('open');
+  }
+
+  function copyLinkModal() {
+    const input = document.getElementById('link-modal-input');
+    const btn = document.getElementById('link-modal-copy-btn');
+    const marcarCopiado = () => {
+      btn.textContent = '✅ ¡Copiado!';
+      setTimeout(() => { btn.textContent = '📋 Copiar link'; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(input.value).then(marcarCopiado).catch(() => {
+        input.select();
+        document.execCommand('copy');
+        marcarCopiado();
+      });
+    } else {
+      input.select();
+      document.execCommand('copy');
+      marcarCopiado();
+    }
+  }
+
   function openSeparadoModal() {
     if (!cart.length) return;
     document.getElementById('separado-cliente').value = '';
@@ -2129,6 +2179,7 @@
             'Persona que separa': 'Cliente (auto)',
             'Código': p.codigo,
             'Categoría': p.categoria,
+            'Talla/Color': item.color || '',
             'Cantidad': item.qty || 1,
             'Precio': precioUnit,
             'Estado': 'Separado',
@@ -2176,7 +2227,7 @@
       document.getElementById('cart-fab').style.display = 'none';
       closeCart();
       window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
-      alert('¡Tu separado #' + pedidoId + ' quedó guardado! Guarda este link para verlo cuando quieras:\n' + link);
+      showLinkModal('¡Tu separado #' + pedidoId + ' quedó guardado!', 'Guarda este link para verlo cuando quieras:', link);
     } catch (e) {
       alert('No se pudo guardar. Intenta de nuevo.\n' + e.message);
     } finally {
@@ -2216,6 +2267,7 @@
             'Persona que separa': colaboradora,
             'Código': p.codigo,
             'Categoría': p.categoria,
+            'Talla/Color': item.color || '',
             'Cantidad': item.qty || 1,
             'Precio': precioUnit,
             'Estado': 'Separado',
@@ -2246,7 +2298,7 @@
       updateCartBadge();
       document.getElementById('cart-fab').style.display = 'none';
       closeCart();
-      prompt('¡Separado #' + pedidoId + ' guardado! Copia este link para enviarle a ' + cliente + ':', link);
+      showLinkModal('¡Separado #' + pedidoId + ' guardado!', 'Copia este link para enviarle a ' + cliente + ':', link);
     } catch (e) {
       alert('No se pudo guardar. Intenta de nuevo.\n' + e.message);
     } finally {
@@ -2283,11 +2335,13 @@
         const cantidad = f['Cantidad'] || 1;
         const precio = (f['Precio'] || 0) * cantidad;
         total += precio;
+        const variante = f['Talla/Color'] || '';
         return `
           <div class="pedido-item">
             ${producto && producto.foto ? `<img src="${producto.foto}" />` : ''}
             <div class="pedido-item-info">
               <div>${f['Categoría'] || ''} ${producto ? '(' + producto.codigo + ')' : ''}</div>
+              ${variante ? `<div style="color:var(--olive);font-weight:600">Opción: ${variante}</div>` : ''}
               <div style="color:var(--gray);font-size:0.85rem">Cantidad: ${cantidad}</div>
               <div style="color:var(--olive)">${formatPrice(precio)}</div>
             </div>
@@ -2429,15 +2483,11 @@
     if (filtersBar) filtersBar.classList.toggle('stuck', window.scrollY > 40);
   });
 
-  // Show welcome screen only if no deep link AND no saved preference
+  // Pantalla de bienvenida eliminada: todo el mundo (clientas, mayoristas e IA)
+  // cae directo al catálogo en modo detal, salvo que ya tengan un modo guardado o un link directo a un producto.
   const savedMode = localStorage.getItem('divaniPriceMode');
-  if (!window.location.hash || window.location.hash === '#') {
-    if (savedMode) {
-      document.getElementById('welcome').style.display = 'none';
-    } else {
-      document.getElementById('welcome').style.display = 'flex';
-    }
-  } else {
+  document.getElementById('welcome').style.display = 'none';
+  if (window.location.hash && window.location.hash !== '#') {
     priceMode = 'detal';
     updatePriceModeToggle();
     checkDeepLink();
