@@ -911,30 +911,31 @@
       font-size: 0.9rem;
     }
 
-    #mayorista-ajuste-row {
+    .cart-item-price-row {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
       position: relative;
-      margin-bottom: 4px;
     }
 
-    #ajuste-toggle-btn {
-      width: 26px;
-      height: 26px;
+    .item-ajuste-toggle {
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       border: 1px solid #E4DCC8;
       background: var(--beige);
       color: var(--gray);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       cursor: pointer;
       line-height: 1;
       opacity: 0.7;
+      margin-top: 4px;
     }
 
-    #ajuste-panel {
+    .ajuste-panel {
       position: absolute;
-      right: 0;
-      top: 30px;
+      left: 0;
+      top: 26px;
       z-index: 20;
       background: var(--white);
       border: 1px solid #E4DCC8;
@@ -1386,23 +1387,6 @@
     </div>
     <div id="cart-items"></div>
     <div id="cart-footer" style="display:none">
-      <div id="mayorista-ajuste-row" style="display:none">
-        <button type="button" id="ajuste-toggle-btn" onclick="toggleAjustePanel()">⚙</button>
-        <div id="ajuste-panel" style="display:none">
-          <div class="ajuste-presets">
-            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(0)">Base</button>
-            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(1000)">+1.000</button>
-            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(2000)">+2.000</button>
-            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(3000)">+3.000</button>
-            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(5000)">+5.000</button>
-            <button type="button" class="ajuste-preset-btn" onclick="setAjuste(7000)">+7.000</button>
-          </div>
-          <div class="ajuste-custom">
-            <input type="number" id="mayorista-ajuste-input" step="500" min="0" value="0" oninput="onAjusteInput(this.value)" />
-            <button type="button" id="ajuste-close-btn" onclick="toggleAjustePanel()">✕</button>
-          </div>
-        </div>
-      </div>
       <div class="cart-total">
         <span class="cart-total-label" id="cart-total-label">Total detal</span>
         <span class="cart-total-value" id="cart-total">$0</span>
@@ -1492,7 +1476,7 @@
     if (existing) {
       existing.qty = (existing.qty || 1) + 1;
     } else {
-      cart.push({ id, color, qty: 1, precioVarianteMayor, precioVarianteDetal });
+      cart.push({ id, color, qty: 1, precioVarianteMayor, precioVarianteDetal, ajuste: 0 });
     }
     trackAddToCart(p, precioVarianteDetal || (priceMode === 'detal' ? p.precioDetal : p.precioMayor));
     updateCartBadge();
@@ -1546,19 +1530,12 @@
   function renderCart() {
     const container = document.getElementById('cart-items');
     const footer = document.getElementById('cart-footer');
-    const ajusteRow = document.getElementById('mayorista-ajuste-row');
-    const showAjuste = priceMode === 'mayorista' && adminMode;
-    if (ajusteRow) ajusteRow.style.display = showAjuste ? 'flex' : 'none';
-    if (!showAjuste) {
-      mayoristaAjuste = 0;
-      const panel = document.getElementById('ajuste-panel');
-      if (panel) panel.style.display = 'none';
-    }
     if (!cart.length) {
       container.innerHTML = '<div class="cart-empty">Tu carrito está vacío 🛒</div>';
       footer.style.display = 'none';
       return;
     }
+    const showAjuste = priceMode === 'mayorista' && adminMode;
     let total = 0;
     container.innerHTML = cart.map((item, idx) => {
       const p = allProducts.find(x => x.id === item.id);
@@ -1566,6 +1543,22 @@
       const precioUnit = getUnitPrice(item, p);
       const precio = precioUnit * (item.qty || 1);
       total += precio;
+      const ajusteBtn = showAjuste ? `
+            <button type="button" class="item-ajuste-toggle" onclick="toggleAjustePanel(${idx})">⚙</button>
+            <div class="ajuste-panel" id="ajuste-panel-${idx}" style="display:none">
+              <div class="ajuste-presets">
+                <button type="button" class="ajuste-preset-btn" onclick="setAjuste(${idx}, 0)">Base</button>
+                <button type="button" class="ajuste-preset-btn" onclick="setAjuste(${idx}, 1000)">+1.000</button>
+                <button type="button" class="ajuste-preset-btn" onclick="setAjuste(${idx}, 2000)">+2.000</button>
+                <button type="button" class="ajuste-preset-btn" onclick="setAjuste(${idx}, 3000)">+3.000</button>
+                <button type="button" class="ajuste-preset-btn" onclick="setAjuste(${idx}, 5000)">+5.000</button>
+                <button type="button" class="ajuste-preset-btn" onclick="setAjuste(${idx}, 7000)">+7.000</button>
+              </div>
+              <div class="ajuste-custom">
+                <input type="number" step="500" min="0" value="${item.ajuste || 0}" oninput="onAjusteInput(${idx}, this.value)" />
+                <button type="button" id="ajuste-close-btn" onclick="toggleAjustePanel(${idx})">✕</button>
+              </div>
+            </div>` : '';
       return `
         <div class="cart-item">
           ${p.foto ? `<img class="cart-item-img" src="${p.foto}" />` : '<div class="cart-item-img"></div>'}
@@ -1577,7 +1570,10 @@
               <span class="qty-value">${item.qty || 1}</span>
               <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
             </div>
-            <div class="cart-item-price">${formatPrice(precio)}</div>
+            <div class="cart-item-price-row">
+              <div class="cart-item-price">${formatPrice(precio)}</div>
+              ${ajusteBtn}
+            </div>
           </div>
           <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
         </div>`;
@@ -1590,27 +1586,36 @@
     footer.style.display = 'block';
   }
 
-  function toggleAjustePanel() {
-    const panel = document.getElementById('ajuste-panel');
+  function toggleAjustePanel(idx) {
+    const panel = document.getElementById('ajuste-panel-' + idx);
     if (!panel) return;
-    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    const willOpen = panel.style.display !== 'block';
+    document.querySelectorAll('.ajuste-panel').forEach(el => el.style.display = 'none');
+    panel.style.display = willOpen ? 'block' : 'none';
   }
 
-  function setAjuste(v) {
-    mayoristaAjuste = Number(v) || 0;
-    const input = document.getElementById('mayorista-ajuste-input');
-    if (input) input.value = mayoristaAjuste;
-    document.querySelectorAll('.ajuste-preset-btn').forEach(btn => {
-      const btnVal = Number(btn.textContent.replace(/[^\d]/g, '') || 0);
-      btn.classList.toggle('active', btnVal === mayoristaAjuste);
-    });
+  function setAjuste(idx, v) {
+    const item = cart[idx];
+    if (!item) return;
+    item.ajuste = Number(v) || 0;
     renderCart();
+    const panel = document.getElementById('ajuste-panel-' + idx);
+    if (panel) {
+      panel.style.display = 'block';
+      panel.querySelectorAll('.ajuste-preset-btn').forEach(btn => {
+        const btnVal = Number(btn.textContent.replace(/[^\d]/g, '') || 0);
+        btn.classList.toggle('active', btnVal === item.ajuste);
+      });
+    }
   }
 
-  function onAjusteInput(v) {
-    mayoristaAjuste = Number(v) || 0;
-    document.querySelectorAll('.ajuste-preset-btn').forEach(btn => btn.classList.remove('active'));
+  function onAjusteInput(idx, v) {
+    const item = cart[idx];
+    if (!item) return;
+    item.ajuste = Number(v) || 0;
     renderCart();
+    const panel = document.getElementById('ajuste-panel-' + idx);
+    if (panel) panel.style.display = 'block';
   }
 
   function sendCartToWhatsApp() {
@@ -1646,18 +1651,13 @@
 
   let priceMode = localStorage.getItem('divaniPriceMode') || 'detal'; // 'detal' or 'mayorista'
 
-  // Ajuste esporádico al precio mayorista (solo aplica en modo colaboradora,
-  // para mayoristas ocasionales que compran un poco más caro que el precio base).
-  // Vive solo en memoria: se resetea a 0 cada vez que se activa "Separar" o se guarda un separado.
-  let mayoristaAjuste = 0;
-
   function getUnitPrice(item, p) {
     let base = item.precioVarianteDetal
       ? (priceMode === 'detal' ? item.precioVarianteDetal : item.precioVarianteMayor)
       : (priceMode === 'detal' ? p.precioDetal : p.precioMayor);
     base = Number(base) || 0;
-    if (priceMode === 'mayorista' && adminMode && mayoristaAjuste) {
-      base += Number(mayoristaAjuste) || 0;
+    if (priceMode === 'mayorista' && adminMode && item.ajuste) {
+      base += Number(item.ajuste) || 0;
     }
     return base;
   }
@@ -1912,7 +1912,7 @@
     if (existing) {
       existing.qty = (existing.qty || 1) + 1;
     } else {
-      cart.push({ id, color: '', qty: 1, precioVarianteMayor: null, precioVarianteDetal: null });
+      cart.push({ id, color: '', qty: 1, precioVarianteMayor: null, precioVarianteDetal: null, ajuste: 0 });
     }
     trackAddToCart(p, priceMode === 'detal' ? p.precioDetal : p.precioMayor);
     updateCartBadge();
@@ -2069,7 +2069,6 @@
 
   function toggleAdminMode() {
     adminMode = !adminMode;
-    mayoristaAjuste = 0;
     document.getElementById('admin-banner').classList.toggle('active', adminMode);
     document.getElementById('admin-toggle-fab').classList.toggle('on', adminMode);
     document.getElementById('admin-toggle-fab').textContent = adminMode ? 'Separar: ON' : 'Separar: OFF';
@@ -2244,7 +2243,6 @@
       const link = window.location.origin + window.location.pathname + '?pedido=' + pedidoId;
       closeSeparadoModal();
       cart = [];
-      mayoristaAjuste = 0;
       updateCartBadge();
       document.getElementById('cart-fab').style.display = 'none';
       closeCart();
